@@ -1,3 +1,6 @@
+/* eslint-disable object-curly-newline */
+/* eslint-disable react/no-unstable-nested-components */
+/* eslint-disable no-undef */
 /* eslint-disable react-native/no-inline-styles */
 /* eslint-disable global-require */
 /* eslint-disable react-hooks/exhaustive-deps */
@@ -9,11 +12,20 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import { firebase } from './config';
+import usePalette from './src/hooks/usePalette.hook';
+import useNav from './src/hooks/useNav.hook';
 
 import Login from './src/auth/Login.auth';
 import Signup from './src/auth/Signup.auth';
-import Home from './src/screens/Home';
-import Onboard from './src/auth/Onboard.start';
+import Home from './src/start/Home.start';
+import Onboard from './src/start/Onboard.start';
+import ResetPassword from './src/auth/ResetPassword.auth';
+import ProfileNav from './src/screens/Profile.nav';
+import NotifyNav from './src/screens/Notify.nav';
+import SettingNav from './src/screens/Setting.nav';
+import AddressNav from './src/screens/Address.nav';
+import CarNav from './src/screens/Car.nav';
+import RouteAppBar from './src/components/RouteAppBar.component';
 // imports ////////////////////////////////
 
 SplashScreen.preventAutoHideAsync();
@@ -21,15 +33,24 @@ const Stack = createNativeStackNavigator();
 
 // SCREENS DATA
 const AUTH_SCREENS = [
-  { id: 1, component: Onboard, name: 'onboard' },
-  { id: 2, component: Login, name: 'login' },
-  { id: 3, component: Signup, name: 'signup' },
+  { id: 1, component: Login, name: 'login' },
+  { id: 2, component: Signup, name: 'signup' },
+  { id: 3, component: ResetPassword, name: 'resetPassword' },
 ];
 
-const APP_SCREENS = [{ id: 1, component: Home, name: 'home' }];
+const APP_SCREENS = [
+  { id: 1, component: NotifyNav, title: 'الاشعارات', name: 'Notify' },
+  { id: 2, component: ProfileNav, title: 'الحساب', name: 'Profile' },
+  { id: 3, component: AddressNav, title: 'العنوان', name: 'Address' },
+  { id: 4, component: CarNav, title: 'السيارة', name: 'Car' },
+  { id: 5, component: SettingNav, title: 'الاعدادات', name: 'Setting' },
+];
 
 // react function /////////////////////////
 function AppNav() {
+  const Palette = usePalette();
+  const go = useNav();
+
   // local hooks:
   const [INIT, SET_INIT] = React.useState(true);
   const [U, SET_U] = React.useState();
@@ -52,6 +73,14 @@ function AppNav() {
   if (!U) {
     return (
       <Stack.Navigator initialRouteName="onboard">
+        <Stack.Screen
+          name="onboard"
+          component={Onboard}
+          options={{
+            headerShown: false,
+            animation: 'simple_push',
+          }}
+        />
         {AUTH_SCREENS.map((screen) => {
           return (
             <Stack.Screen
@@ -68,13 +97,22 @@ function AppNav() {
 
   return (
     <Stack.Navigator initialRouteName="home">
+      <Stack.Screen
+        name="home"
+        component={Home}
+        options={{ statusBarColor: Palette.Primary, headerShown: false, animation: 'simple_push' }}
+      />
       {APP_SCREENS.map((screen) => {
         return (
           <Stack.Screen
             key={screen.id}
             name={screen.name}
             component={screen.component}
-            options={{ headerShown: false, animation: 'slide_from_left' }}
+            options={{
+              statusBarColor: Palette.Primary,
+              header: () => <RouteAppBar title={screen.title} onPress={() => go.to('home')} />,
+              animation: 'fade_from_bottom',
+            }}
           />
         );
       })}

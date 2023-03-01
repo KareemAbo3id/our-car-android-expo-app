@@ -44,7 +44,9 @@ export default function Login() {
     try {
       await firebase.auth().signInWithEmailAndPassword(email, password);
     } catch (error) {
-      alert('البريد الالكتروني الذي ادخلته قد يكون خاطئ او غير مسجل في التطبيق، حاول لاحقاً.');
+      alert(
+        'البريد الالكتروني او رمز المرور الذي ادخلته قد يكون خاطئ او غير مسجل في التطبيق، حاول لاحقاً.'
+      );
     }
   };
 
@@ -117,13 +119,14 @@ export default function Login() {
               fontFamily: KMFont.Regular,
               color: Palette.Info,
             }}
-            onPress={() => go.to('ResetPassword')}
+            onPress={() => go.to('resetPassword')}
           >
             نسيت رمز المرور؟
           </Button>
         </Flex>
-        <Stack direction="column" justify="center" items="stretch">
+        <Stack direction="column" justify="center" items="stretch" spacing={10}>
           <Button
+            icon="lightning-bolt"
             mode="contained"
             elevation={5}
             buttonColor={Palette.Info}
@@ -140,10 +143,12 @@ export default function Login() {
             دخول
           </Button>
           <Button
-            mode="text"
+            icon="account-plus"
+            mode="outlined"
+            style={{ borderColor: Palette.Info, borderRadius: 1000 }}
             textColor={Palette.Info}
             labelStyle={{
-              fontFamily: KMFont.Regular,
+              fontFamily: KMFont.Medium,
               fontSize: 15,
               lineHeight: 29,
             }}

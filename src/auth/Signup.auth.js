@@ -330,6 +330,7 @@ export default function Signup() {
               {/* NEXT NAME */}
               <Button
                 mode="contained"
+                icon="arrow-left-bold"
                 elevation={5}
                 buttonColor={Palette.Info}
                 textColor={Palette.PrimLight}
@@ -376,6 +377,7 @@ export default function Signup() {
               <Button
                 mode="contained"
                 elevation={5}
+                icon="arrow-left-bold"
                 buttonColor={Palette.Info}
                 textColor={Palette.PrimLight}
                 style={{ borderRadius: 1000, marginTop: 10 }}
@@ -454,6 +456,7 @@ export default function Signup() {
               </Flex>
               {/* NEXT PASSWORD */}
               <Button
+                icon="arrow-left-bold"
                 mode="contained"
                 elevation={5}
                 buttonColor={Palette.Info}
@@ -497,6 +500,7 @@ export default function Signup() {
             <Button
               mode="contained"
               elevation={5}
+              icon="arrow-left-bold"
               buttonColor={Palette.Info}
               textColor={Palette.PrimLight}
               style={{ borderRadius: 1000, marginTop: 10 }}
@@ -581,6 +585,7 @@ export default function Signup() {
             <Button
               mode="contained"
               elevation={5}
+              icon="arrow-left-bold"
               buttonColor={Palette.Info}
               textColor={Palette.PrimLight}
               style={{ borderRadius: 1000, marginTop: 10 }}
@@ -666,6 +671,7 @@ export default function Signup() {
             <Button
               mode="contained"
               elevation={5}
+              icon="arrow-left-bold"
               buttonColor={Palette.Info}
               textColor={Palette.PrimLight}
               style={{ borderRadius: 1000, marginTop: 10 }}
@@ -692,27 +698,42 @@ export default function Signup() {
               <Card
                 style={{
                   borderRadius: 15,
-                  backgroundColor: Palette.Primary,
+                  backgroundColor: Palette.PrimLight,
                   marginBottom: 30,
+                  overflow: 'hidden',
+                  elevation: 30,
                 }}
-                elevation={5}
               >
                 <Card.Content>
+                  <View
+                    style={{
+                      position: 'absolute',
+                      backgroundColor: Palette.Primary,
+                      opacity: 0.15,
+                      height: 300,
+                      width: 250,
+                      transform: [{ rotate: '44deg' }],
+                      bottom: -50,
+                      left: 200,
+                      borderRadius: 50,
+                    }}
+                  />
                   <Text
                     variant="headlineSmall"
                     style={{
-                      fontFamily: KMFont.Bold,
-                      color: Palette.PrimLight,
+                      fontFamily: KMFont.Black,
+                      color: Palette.Primary2,
+                      fontSize: 22,
                     }}
                   >
                     {`👋 أهلاً، ${localFName} ${localLName}`}
                   </Text>
-                  <Divider color={Palette.PrimLight} style={{ marginVertical: 8, opacity: 0.4 }} />
+                  <Divider color={Palette.Primary} style={{ marginVertical: 8, opacity: 0.4 }} />
                   <Text
                     variant="bodyLarge"
                     style={{
-                      fontFamily: KMFont.Regular,
-                      color: Palette.PrimLight,
+                      fontFamily: KMFont.Medium,
+                      color: Palette.Black,
                     }}
                   >
                     {`📧 الايميل: ${localEmail}`}
@@ -720,8 +741,8 @@ export default function Signup() {
                   <Text
                     variant="bodyLarge"
                     style={{
-                      fontFamily: KMFont.Regular,
-                      color: Palette.PrimLight,
+                      fontFamily: KMFont.Medium,
+                      color: Palette.Black,
                     }}
                   >
                     {`🚗 السيارة: ${localMake} ${loaclModel} ${localYear}`}
@@ -729,8 +750,8 @@ export default function Signup() {
                   <Text
                     variant="bodyLarge"
                     style={{
-                      fontFamily: KMFont.Regular,
-                      color: Palette.PrimLight,
+                      fontFamily: KMFont.Medium,
+                      color: Palette.Black,
                     }}
                   >
                     {`🗺️ العنوان: ${loaclCity} - ${localDis}`}
@@ -739,9 +760,9 @@ export default function Signup() {
                 <Card.Actions>
                   <IconButton
                     mode="contained"
-                    containerColor={Palette.PrimLight}
+                    containerColor={Palette.Primary}
                     icon="pencil"
-                    iconColor={Palette.Black}
+                    iconColor={Palette.PrimLight}
                     onPress={() => {
                       resetSignUpForm();
                     }}
@@ -749,6 +770,7 @@ export default function Signup() {
                 </Card.Actions>
               </Card>
               <Button
+                icon="lightning-bolt"
                 mode="contained"
                 elevation={5}
                 buttonColor={Palette.Info}
@@ -779,10 +801,12 @@ export default function Signup() {
             </View>
           )}
           <Button
-            mode="text"
+            icon="login"
+            mode="outlined"
+            style={{ borderColor: Palette.Info, borderRadius: 1000, marginTop: 10 }}
             textColor={Palette.Info}
             labelStyle={{
-              fontFamily: KMFont.Regular,
+              fontFamily: KMFont.Medium,
               fontSize: 15,
               lineHeight: 29,
             }}

@@ -1,24 +1,18 @@
+/* eslint-disable object-curly-newline */
 import React from 'react';
-import { StyleSheet, Text, SafeAreaView } from 'react-native';
-import { firebase } from '../../config';
-import EmailVer from '../auth/EmailVer.auth';
+import { SafeAreaView, StyleSheet, Text } from 'react-native';
+import KMFont from '../hooks/useFont.hook';
 // imports ////////////////////////////////
 
 // react function /////////////////////////
-export default function Home() {
+export default function NotifyNav() {
   // local hooks:
-  const isCurrentUserVerified = firebase.auth().currentUser.emailVerified;
-
   // local handlers:
 
   // local ui:
-  if (!isCurrentUserVerified) {
-    return <EmailVer />;
-  }
-
   return (
     <SafeAreaView style={Styles.SAVStyleForAndroid}>
-      <Text>Home</Text>
+      <Text style={{ fontFamily: KMFont.Regular }}>الاشعارات</Text>
     </SafeAreaView>
   );
 }
