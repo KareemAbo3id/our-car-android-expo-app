@@ -1,0 +1,5 @@
+node_modules/
+.editorconfig
+.eslintignore
+.eslintrc.js
+babel.config.js
