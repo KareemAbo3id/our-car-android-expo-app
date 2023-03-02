@@ -8,14 +8,18 @@
 import React, { useState } from 'react';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Stack } from '@react-native-material/core';
-import { FlatList } from 'react-native';
-import { Button, Text, TextInput } from 'react-native-paper';
+import { FlatList, Dimensions } from 'react-native';
+import { ActivityIndicator, Card, Text, TextInput } from 'react-native-paper';
 import { firebase } from '../../config';
 import centersList from '../../data/centersList';
 import CenterItem from '../components/CenterItem.component';
 import KMFont from '../hooks/useFont.hook';
 import usePalette from '../hooks/usePalette.hook';
+import useNav from '../hooks/useNav.hook';
 // imports ////////////////////////////////
+
+// eslint-disable-next-line no-unused-vars
+const { height, width } = Dimensions.get('window');
 
 // react function /////////////////////////
 export default function EntryNav() {
@@ -23,6 +27,7 @@ export default function EntryNav() {
   const Palette = usePalette();
   const [refreshing, setRefreshing] = useState(false);
   const [centerSearch, setCenterSearch] = useState('');
+  const go = useNav();
 
   const { currentUser } = firebase.auth();
   const [userAllData, setUserAllData] = React.useState('');
@@ -50,6 +55,11 @@ export default function EntryNav() {
   React.useEffect(() => getUserAllData(), []);
 
   // onRefresh =============:
+  const filteredCenters = centersList.filter((center) => {
+    return center.title.toLocaleLowerCase().includes(centerSearch);
+  });
+
+  // onRefresh =============:
   const onRefresh = React.useCallback(() => {
     setRefreshing(true);
     getUserAllData();
@@ -65,47 +75,56 @@ export default function EntryNav() {
   // local ui:
   return (
     <Stack>
-      <Stack w="100%" ph={20} pb={10} direction="row" items="center" justify="start">
-        <Text variant="headlineLarge" style={{ fontFamily: KMFont.Bold, color: Palette.PrimDark }}>
-          إحجز موعدك
-        </Text>
-      </Stack>
-      <Stack w="100%" ph={25} pb={10} direction="row" items="center" justify="center" spacing={10}>
-        <Button
-          icon="calendar-blank"
-          mode="elevated"
-          elevation={1}
-          buttonColor={Palette.Info}
-          textColor={Palette.White}
-          style={{ width: '50%', borderRadius: 1200, paddingVertical: 5 }}
-          labelStyle={{ fontFamily: KMFont.Bold }}
-        >
-          <Text variant="bodyLarge" style={{ color: Palette.White, fontFamily: KMFont.Medium }}>
-            {Date().slice(0, 11)}
-          </Text>
-        </Button>
-        <Button
-          icon="car"
-          mode="elevated"
-          elevation={1}
-          buttonColor={Palette.White}
-          textColor={Palette.Primary}
-          style={{
-            width: '50%',
-            borderRadius: 1200,
-            paddingVertical: 5,
+      <Stack w="100%" ph={25} pb={10} direction="row" items="center" justify="between" spacing={10}>
+        {/* booking date */}
+        <Card style={{ backgroundColor: Palette.Info, flex: 0.6 }}>
+          <Card.Content
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              gap: 2,
+            }}
+          >
+            <MaterialCommunityIcons name="calendar" color={Palette.White} size={20} />
+            <Text variant="bodyLarge" style={{ color: Palette.White, fontFamily: KMFont.Medium }}>
+              الاربعاء 09:00
+            </Text>
+          </Card.Content>
+        </Card>
+        {/* user car */}
+        <Card
+          onPress={() => {
+            go.to('Car');
           }}
-          labelStyle={{ fontFamily: KMFont.Bold }}
+          style={{ backgroundColor: Palette.White, flex: 0.4 }}
         >
-          <Text variant="bodyLarge" style={{ color: Palette.PrimDark, fontFamily: KMFont.Bold }}>
-            {userAllData?.userCar?.userMake}
-          </Text>
-        </Button>
+          <Card.Content
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              gap: 2,
+            }}
+          >
+            <MaterialCommunityIcons name="car" color={Palette.PrimDark} size={20} />
+            {userAllData?.userCar?.userMake ? (
+              <Text
+                variant="bodyLarge"
+                style={{ color: Palette.PrimDark, fontFamily: KMFont.Medium }}
+              >
+                {userAllData?.userCar?.userMake}
+              </Text>
+            ) : (
+              <ActivityIndicator animating color={Palette.Primary} />
+            )}
+          </Card.Content>
+        </Card>
       </Stack>
 
-      <Stack w="100%" ph={20} pb={10} direction="row" items="center" justify="between" spacing={10}>
+      <Stack ph={20} pb={10} direction="row" items="center" justify="center">
         <TextInput
-          placeholder="ابحث عن شركة / مركز صيانة / خدمة"
+          placeholder="ابحث عن شركة، مركز صيانة..."
           mode="outlined"
           value={centerSearch}
           onChangeText={(text) => setCenterSearch(text)}
@@ -114,56 +133,65 @@ export default function EntryNav() {
           activeOutlineColor={Palette.SecDark2}
           outlineColor="transparent"
           contentStyle={{ fontFamily: KMFont.Regular, fontSize: 17 }}
-          style={{ backgroundColor: Palette.White, textAlign: 'auto' }}
+          style={{ backgroundColor: Palette.White, textAlign: 'auto', flex: 1 }}
           placeholderTextColor={Palette.SecDark}
           outlineStyle={{ borderRadius: 1200, borderWidth: 1 }}
         />
-        <MaterialCommunityIcons name="filter-variant" size={40} color={Palette.Primary} />
       </Stack>
-      <FlatList
-        refreshing={refreshing}
-        onRefresh={onRefresh}
-        data={centersList}
-        renderItem={({ item }) => (
-          <CenterItem
-            key={item.id}
-            image={item.image}
-            title={item.title}
-            describe={item.describe}
-            rates={item.rates}
-            stars={item.stars.map((i, j) => {
-              if (i === 1) {
-                return <MaterialCommunityIcons key={j} name="star" color={Palette.Warning2} />;
-              } else {
-                return <MaterialCommunityIcons key={j} name="star" color={Palette.SecPrimary} />;
-              }
-            })}
-            services={item.services.map((i, o) => {
-              return (
-                <Stack key={o} direction="row" items="center" justify="between" w="100%" ph={10}>
-                  <Stack direction="row" items="center" justify="start" spacing={5}>
-                    <MaterialCommunityIcons name="car-wash" size={20} color={Palette.Info} />
-                    <Text
-                      variant="titleMedium"
-                      style={{ color: Palette.Black, fontFamily: KMFont.Bold }}
-                    >
-                      {i.serName}
-                    </Text>
-                  </Stack>
-                  <Text
-                    variant="titleMedium"
-                    style={{ color: Palette.Success, fontFamily: KMFont.Bold }}
-                  >
-                    SAR {i.serPrice}
-                  </Text>
-                </Stack>
-              );
-            })}
+      {!filteredCenters ? (
+        <Stack pv={20}>
+          <ActivityIndicator animating color={Palette.Primary} />
+        </Stack>
+      ) : (
+        <Stack mb={height * 0.35}>
+          <FlatList
+            refreshing={refreshing}
+            onRefresh={onRefresh}
+            data={filteredCenters}
+            renderItem={({ item }) => (
+              <CenterItem
+                key={item.id}
+                image={item.image}
+                title={item.title}
+                describe={item.describe}
+                rates={item.rates}
+                stars={item.stars.map((i, j) => {
+                  if (i === 1) {
+                    return <MaterialCommunityIcons key={j} name="star" color={Palette.Warning2} />;
+                  } else {
+                    return (
+                      <MaterialCommunityIcons key={j} name="star" color={Palette.SecPrimary} />
+                    );
+                  }
+                })}
+                services={item.services.map((i, o) => {
+                  return (
+                    <Stack key={o} direction="row" items="center" justify="between" w="100%">
+                      <Stack direction="row" items="center" justify="start" spacing={5}>
+                        <MaterialCommunityIcons name="car-wash" size={20} color={Palette.Info} />
+                        <Text
+                          variant="titleMedium"
+                          style={{ color: Palette.PrimDark, fontFamily: KMFont.Medium }}
+                        >
+                          {i.serName}
+                        </Text>
+                      </Stack>
+                      <Text
+                        variant="titleMedium"
+                        style={{ color: Palette.Primary2, fontFamily: KMFont.Medium }}
+                      >
+                        {i.serPrice} ريال
+                      </Text>
+                    </Stack>
+                  );
+                })}
+              />
+            )}
+            showsHorizontalScrollIndicator={false}
+            keyExtractor={(item) => item.id}
           />
-        )}
-        showsHorizontalScrollIndicator={false}
-        keyExtractor={(item) => item.id}
-      />
+        </Stack>
+      )}
     </Stack>
   );
 }

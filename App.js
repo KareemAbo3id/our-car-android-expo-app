@@ -26,6 +26,9 @@ import SettingNav from './src/screens/Setting.nav';
 import AddressNav from './src/screens/Address.nav';
 import CarNav from './src/screens/Car.nav';
 import RouteAppBar from './src/components/RouteAppBar.component';
+import EntryNav from './src/screens/Entry.nav';
+import MapNav from './src/screens/Maps.nav';
+import StoreNav from './src/screens/Store.nav';
 // imports ////////////////////////////////
 
 SplashScreen.preventAutoHideAsync();
@@ -44,6 +47,9 @@ const APP_SCREENS = [
   { id: 3, component: AddressNav, title: 'العنوان', name: 'Address' },
   { id: 4, component: CarNav, title: 'السيارة', name: 'Car' },
   { id: 5, component: SettingNav, title: 'الاعدادات', name: 'Setting' },
+  { id: 6, component: EntryNav, title: '', name: 'Entry' },
+  { id: 7, component: MapNav, title: '', name: 'Map' },
+  { id: 8, component: StoreNav, title: '', name: 'Shop' },
 ];
 
 // react function /////////////////////////
@@ -77,6 +83,8 @@ function AppNav() {
           name="onboard"
           component={Onboard}
           options={{
+            statusBarColor: 'transparent',
+            statusBarTranslucent: true,
             headerShown: false,
             animation: 'simple_push',
           }}
@@ -87,7 +95,12 @@ function AppNav() {
               key={screen.id}
               name={screen.name}
               component={screen.component}
-              options={{ headerShown: false, animation: 'slide_from_left' }}
+              options={{
+                statusBarColor: 'transparent',
+                statusBarTranslucent: true,
+                headerShown: false,
+                animation: 'slide_from_left',
+              }}
             />
           );
         })}

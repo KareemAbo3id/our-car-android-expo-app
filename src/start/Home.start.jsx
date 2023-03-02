@@ -1,5 +1,5 @@
 import React from 'react';
-import { SafeAreaView, StyleSheet, Dimensions } from 'react-native';
+import { SafeAreaView, StyleSheet, Dimensions, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { ActivityIndicator, Appbar, Text } from 'react-native-paper';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -62,36 +62,45 @@ export default function Home() {
     return <EmailVer />;
   }
 
+  if (!userAllData) {
+    return (
+      <View style={[Styles.SAVStyleForAndroid, { justifyContent: 'center', alignItems: 'center' }]}>
+        <ActivityIndicator animating color={Palette.Primary} />
+      </View>
+    );
+  }
+
   return (
     <SafeAreaView style={Styles.SAVStyleForAndroid}>
       {/* AppBar ////////////////// */}
-      {userAllData ? (
-        <Appbar style={Styles.AppbarStyle}>
-          <Stack spacing={5} direction="row" justify="center" items="center">
-            <MaterialCommunityIcons
-              onPress={() => {
-                go.to('Profile');
-              }}
-              name="account"
-              size={25}
-              color={Palette.Primary}
-              style={{
-                backgroundColor: Palette.White,
-                borderRadius: 1000,
-                padding: 5,
-                elevation: 2,
-              }}
-            />
 
-            <Text
-              variant="titleLarge"
-              style={{ fontFamily: KMFont.Regular }}
-              onPress={() => {
-                go.to('Profile');
-              }}
-            >
-              هلا،
-            </Text>
+      <Appbar style={Styles.AppbarStyle}>
+        <Stack spacing={5} direction="row" justify="center" items="center">
+          <MaterialCommunityIcons
+            onPress={() => {
+              go.to('Profile');
+            }}
+            name="account"
+            size={25}
+            color={Palette.Primary}
+            style={{
+              backgroundColor: Palette.White,
+              borderRadius: 1000,
+              padding: 5,
+              elevation: 2,
+            }}
+          />
+
+          <Text
+            variant="titleLarge"
+            style={{ fontFamily: KMFont.Regular }}
+            onPress={() => {
+              go.to('Profile');
+            }}
+          >
+            هلا،
+          </Text>
+          {userAllData?.userContact?.userFname ? (
             <Text
               variant="titleLarge"
               style={{ fontFamily: KMFont.Medium }}
@@ -101,44 +110,41 @@ export default function Home() {
             >
               {userAllData?.userContact?.userFname}
             </Text>
-          </Stack>
-          <Stack spacing={10} direction="row" justify="center" items="center">
-            <MaterialCommunityIcons
-              onPress={() => {
-                go.to('Setting');
-              }}
-              name="cog"
-              size={25}
-              color={Palette.Primary}
-              style={{
-                backgroundColor: Palette.White,
-                borderRadius: 1000,
-                padding: 5,
-                elevation: 2,
-              }}
-            />
-            <MaterialCommunityIcons
-              onPress={() => {
-                go.to('Notify');
-              }}
-              name="bell"
-              size={25}
-              color={Palette.Primary}
-              style={{
-                backgroundColor: Palette.White,
-                borderRadius: 1000,
-                padding: 5,
-                elevation: 2,
-              }}
-            />
-          </Stack>
-        </Appbar>
-      ) : (
-        <Stack pv={20}>
-          <ActivityIndicator animating color={Palette.Primary} />
+          ) : (
+            <ActivityIndicator animating color={Palette.Primary} />
+          )}
         </Stack>
-      )}
-
+        <Stack spacing={10} direction="row" justify="center" items="center">
+          <MaterialCommunityIcons
+            onPress={() => {
+              go.to('Setting');
+            }}
+            name="cog"
+            size={25}
+            color={Palette.Primary}
+            style={{
+              backgroundColor: Palette.White,
+              borderRadius: 1000,
+              padding: 5,
+              elevation: 2,
+            }}
+          />
+          <MaterialCommunityIcons
+            onPress={() => {
+              go.to('Notify');
+            }}
+            name="bell"
+            size={25}
+            color={Palette.Primary}
+            style={{
+              backgroundColor: Palette.White,
+              borderRadius: 1000,
+              padding: 5,
+              elevation: 2,
+            }}
+          />
+        </Stack>
+      </Appbar>
       {/* NavigationContainer */}
       <NavigationContainer independent>
         <Tab.Navigator
@@ -156,7 +162,6 @@ export default function Home() {
               } else if (rn === screenNames.Shop) {
                 iconName = focused ? 'shopping' : 'shopping-outline';
               }
-
               return (
                 <MaterialCommunityIcons
                   name={iconName}
@@ -188,11 +193,10 @@ export default function Home() {
                 </Text>
               );
             },
-            lazy: true,
             tabBarShowLabel: true,
             tabBarItemStyle: { paddingVertical: 8 },
             tabBarStyle: {
-              height: 75,
+              height: height * 0.1,
               borderTopLeftRadius: 20,
               borderTopRightRadius: 20,
             },

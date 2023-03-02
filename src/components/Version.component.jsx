@@ -16,12 +16,12 @@ export default function Version() {
   return (
     <Text
       style={{
-        color: Palette.Secondary,
+        color: Palette.SecDark,
         textAlign: 'center',
-        fontWeight: KMFont.Regular,
+        fontFamily: KMFont.Regular,
       }}
     >
-      نسخة تجريبية V1.0.0
+      نسخة تجريبية V1.0.15
     </Text>
   );
 }

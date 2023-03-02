@@ -2,7 +2,7 @@
 const centersList = [
   {
     id: 1,
-    title: 'مركز النجم',
+    title: 'ورشة صندوق الأدوات لصيانة السيارات',
     rates: 50,
     stars: [1, 1, 1, 1, 0],
     image: require('../assets/centers/center-image1.png'),
@@ -27,7 +27,7 @@ const centersList = [
   },
   {
     id: 2,
-    title: 'مركز النجم',
+    title: 'مغسلة الشارقة للسيارات',
     services: [
       {
         serName: 'غسيل (بخار)',
@@ -52,7 +52,7 @@ const centersList = [
   },
   {
     id: 3,
-    title: 'مركز النجم',
+    title: 'مركز وائل لصيانة السيارات',
     services: [
       {
         serName: 'غسيل (بخار)',
@@ -77,7 +77,7 @@ const centersList = [
   },
   {
     id: 4,
-    title: 'مركز النجم',
+    title: 'مجموعة عز العرب لغسيل السيارات',
     services: [
       {
         serName: 'غسيل (بخار)',
@@ -102,7 +102,7 @@ const centersList = [
   },
   {
     id: 5,
-    title: 'مركز النجم',
+    title: 'مراكز تغيير زيوت شل المعتمدة',
     services: [
       {
         serName: 'غسيل (بخار)',
@@ -127,7 +127,7 @@ const centersList = [
   },
   {
     id: 6,
-    title: 'مركز النجم',
+    title: 'شركة هاى تك لخدمة وسائل النقل',
     services: [
       {
         serName: 'غسيل (بخار)',
@@ -152,7 +152,7 @@ const centersList = [
   },
   {
     id: 7,
-    title: 'مركز النجم',
+    title: 'مركز الوطنية لخدمة وصيانة السيارات',
     services: [
       {
         serName: 'غسيل (بخار)',
@@ -177,7 +177,7 @@ const centersList = [
   },
   {
     id: 8,
-    title: 'مركز النجم',
+    title: 'شركة اليسر لصناعة هياكل السيارات',
     services: [
       {
         serName: 'غسيل (بخار)',
@@ -202,7 +202,7 @@ const centersList = [
   },
   {
     id: 9,
-    title: 'مركز النجم',
+    title: 'ورشة انطون للسيارات',
     services: [
       {
         serName: 'غسيل (بخار)',
@@ -227,7 +227,7 @@ const centersList = [
   },
   {
     id: 10,
-    title: 'مركز النجم',
+    title: 'ورشة أبو غالى اوتوموتيف',
     services: [
       {
         serName: 'غسيل (بخار)',
@@ -252,7 +252,7 @@ const centersList = [
   },
   {
     id: 11,
-    title: 'مركز النجم',
+    title: 'مركز العالمي للإطارات والبطاريات',
     services: [
       {
         serName: 'غسيل (بخار)',
@@ -277,7 +277,7 @@ const centersList = [
   },
   {
     id: 12,
-    title: 'مركز النجم',
+    title: 'مراكز الوعلان لصيانة السيارات',
     services: [
       {
         serName: 'غسيل (بخار)',
@@ -302,7 +302,7 @@ const centersList = [
   },
   {
     id: 13,
-    title: 'مركز النجم',
+    title: 'مركز الخليج لصيانة وغسيل السيارات',
     services: [
       {
         serName: 'غسيل (بخار)',
@@ -327,7 +327,7 @@ const centersList = [
   },
   {
     id: 14,
-    title: 'مركز النجم',
+    title: 'ورشة الرفيق للصيانة الشاملة',
     services: [
       {
         serName: 'غسيل (بخار)',
@@ -352,7 +352,7 @@ const centersList = [
   },
   {
     id: 15,
-    title: 'مركز النجم',
+    title: 'مركز شام لصيانة السيارات',
     services: [
       {
         serName: 'غسيل (بخار)',
@@ -377,7 +377,7 @@ const centersList = [
   },
   {
     id: 16,
-    title: 'مركز النجم',
+    title: 'مركز النجوم للنظافة الشاملة سيارات',
     services: [
       {
         serName: 'غسيل (بخار)',
@@ -402,7 +402,7 @@ const centersList = [
   },
   {
     id: 17,
-    title: 'مركز النجم',
+    title: 'محطة اوتو للاطارات والقير',
     services: [
       {
         serName: 'غسيل (بخار)',
@@ -427,7 +427,7 @@ const centersList = [
   },
   {
     id: 18,
-    title: 'مركز النجم',
+    title: 'المتخصص لغسيل السيارات',
     services: [
       {
         serName: 'غسيل (بخار)',
@@ -452,7 +452,7 @@ const centersList = [
   },
   {
     id: 19,
-    title: 'مركز النجم',
+    title: 'شركة كلين كار',
     services: [
       {
         serName: 'غسيل (بخار)',
@@ -477,7 +477,7 @@ const centersList = [
   },
   {
     id: 20,
-    title: 'مركز النجم',
+    title: 'مغسلة التلميع الذهبي',
     services: [
       {
         serName: 'غسيل (بخار)',
