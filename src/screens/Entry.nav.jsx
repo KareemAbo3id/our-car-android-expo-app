@@ -75,53 +75,6 @@ export default function EntryNav() {
   // local ui:
   return (
     <Stack>
-      <Stack w="100%" ph={25} pb={10} direction="row" items="center" justify="between" spacing={10}>
-        {/* booking date */}
-        <Card style={{ backgroundColor: Palette.Info, flex: 0.6 }}>
-          <Card.Content
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              gap: 2,
-            }}
-          >
-            <MaterialCommunityIcons name="calendar" color={Palette.White} size={20} />
-            <Text variant="bodyLarge" style={{ color: Palette.White, fontFamily: KMFont.Medium }}>
-              الاربعاء 09:00
-            </Text>
-          </Card.Content>
-        </Card>
-        {/* user car */}
-        <Card
-          onPress={() => {
-            go.to('Car');
-          }}
-          style={{ backgroundColor: Palette.White, flex: 0.4 }}
-        >
-          <Card.Content
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              gap: 2,
-            }}
-          >
-            <MaterialCommunityIcons name="car" color={Palette.PrimDark} size={20} />
-            {userAllData?.userCar?.userMake ? (
-              <Text
-                variant="bodyLarge"
-                style={{ color: Palette.PrimDark, fontFamily: KMFont.Medium }}
-              >
-                {userAllData?.userCar?.userMake}
-              </Text>
-            ) : (
-              <ActivityIndicator animating color={Palette.Primary} />
-            )}
-          </Card.Content>
-        </Card>
-      </Stack>
-
       <Stack ph={20} pb={10} direction="row" items="center" justify="center">
         <TextInput
           placeholder="ابحث عن شركة، مركز صيانة..."
@@ -143,7 +96,7 @@ export default function EntryNav() {
           <ActivityIndicator animating color={Palette.Primary} />
         </Stack>
       ) : (
-        <Stack mb={height * 0.35}>
+        <Stack mb={height * 0.17}>
           <FlatList
             refreshing={refreshing}
             onRefresh={onRefresh}

@@ -1,7 +1,11 @@
+/* eslint-disable react-native/no-color-literals */
+/* eslint-disable react-native/no-unused-styles */
+/* eslint-disable react-native/no-inline-styles */
+/* eslint-disable react/no-unstable-nested-components */
 import React from 'react';
 import { SafeAreaView, StyleSheet, Dimensions, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
-import { ActivityIndicator, Appbar, Text } from 'react-native-paper';
+import { ActivityIndicator, Appbar, Card, Text } from 'react-native-paper';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Stack } from '@react-native-material/core';
@@ -15,6 +19,7 @@ import StoreNav from '../screens/Store.nav';
 import usePalette from '../hooks/usePalette.hook';
 import KMFont from '../hooks/useFont.hook';
 import useNav from '../hooks/useNav.hook';
+import EntryNavHeader from '../headers/EntryNavHeader';
 // imports ////////////////////////////////
 
 const { height, width } = Dimensions.get('window');
@@ -74,77 +79,6 @@ export default function Home() {
     <SafeAreaView style={Styles.SAVStyleForAndroid}>
       {/* AppBar ////////////////// */}
 
-      <Appbar style={Styles.AppbarStyle}>
-        <Stack spacing={5} direction="row" justify="center" items="center">
-          <MaterialCommunityIcons
-            onPress={() => {
-              go.to('Profile');
-            }}
-            name="account"
-            size={25}
-            color={Palette.Primary}
-            style={{
-              backgroundColor: Palette.White,
-              borderRadius: 1000,
-              padding: 5,
-              elevation: 2,
-            }}
-          />
-
-          <Text
-            variant="titleLarge"
-            style={{ fontFamily: KMFont.Regular }}
-            onPress={() => {
-              go.to('Profile');
-            }}
-          >
-            هلا،
-          </Text>
-          {userAllData?.userContact?.userFname ? (
-            <Text
-              variant="titleLarge"
-              style={{ fontFamily: KMFont.Medium }}
-              onPress={() => {
-                go.to('Profile');
-              }}
-            >
-              {userAllData?.userContact?.userFname}
-            </Text>
-          ) : (
-            <ActivityIndicator animating color={Palette.Primary} />
-          )}
-        </Stack>
-        <Stack spacing={10} direction="row" justify="center" items="center">
-          <MaterialCommunityIcons
-            onPress={() => {
-              go.to('Setting');
-            }}
-            name="cog"
-            size={25}
-            color={Palette.Primary}
-            style={{
-              backgroundColor: Palette.White,
-              borderRadius: 1000,
-              padding: 5,
-              elevation: 2,
-            }}
-          />
-          <MaterialCommunityIcons
-            onPress={() => {
-              go.to('Notify');
-            }}
-            name="bell"
-            size={25}
-            color={Palette.Primary}
-            style={{
-              backgroundColor: Palette.White,
-              borderRadius: 1000,
-              padding: 5,
-              elevation: 2,
-            }}
-          />
-        </Stack>
-      </Appbar>
       {/* NavigationContainer */}
       <NavigationContainer independent>
         <Tab.Navigator
@@ -161,6 +95,8 @@ export default function Home() {
                 iconName = focused ? 'map' : 'map-outline';
               } else if (rn === screenNames.Shop) {
                 iconName = focused ? 'shopping' : 'shopping-outline';
+              } else if (rn === screenNames.Profile) {
+                iconName = focused ? 'account' : 'account-outline';
               }
               return (
                 <MaterialCommunityIcons
@@ -180,6 +116,8 @@ export default function Home() {
                 tabLabel = 'الخريطة';
               } else if (rn === screenNames.Shop) {
                 tabLabel = 'المتجر';
+              } else if (rn === screenNames.Profile) {
+                tabLabel = 'الحساب';
               }
               return (
                 <Text
@@ -203,7 +141,11 @@ export default function Home() {
             tabBarHideOnKeyboard: true,
           })}
         >
-          <Tab.Screen name="Entry" component={EntryNav} options={{ headerShown: false }} />
+          <Tab.Screen
+            name="Entry"
+            component={EntryNav}
+            options={{ header: () => <EntryNavHeader /> }}
+          />
           <Tab.Screen name="Map" component={MapNav} options={{ headerShown: false }} />
           <Tab.Screen name="Shop" component={StoreNav} options={{ headerShown: false }} />
         </Tab.Navigator>
@@ -217,6 +159,7 @@ const Styles = StyleSheet.create({
   SAVStyleForAndroid: {
     flex: 1,
   },
+
   AppbarStyle: {
     backgroundColor: 'transparent',
     paddingVertical: 15,
