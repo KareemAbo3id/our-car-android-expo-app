@@ -22,6 +22,22 @@ export default function EmailVer() {
   const openLink = useLink();
   const Palette = usePalette();
 
+  // reSendVerEmail =============:
+  const reSendVerEmail = async () => {
+    await firebase
+      .auth()
+      .currentUser.sendEmailVerification({
+        handleCodeInApp: true,
+        url: 'https://ourcar-ec74b.firebaseapp.com',
+      })
+      .then(() => {
+        alert('تم ارسال رابط تفعيل الحساب الى بريدك الالكتروني');
+      })
+      .catch(() => {
+        alert('خطأ غير معروف، حاول مرة اخرى');
+      });
+  };
+
   // local ui =============:
   return (
     <SafeAreaView style={[Styles.SAVStyleForAndroid, { backgroundColor: Palette.darkBg }]}>
@@ -50,6 +66,20 @@ export default function EmailVer() {
             }}
           >
             التوجه الى صفحة تسجيل الدخول
+          </Button>
+          <Button
+            icon="email-fast"
+            mode="outlined"
+            style={{ borderColor: Palette.Info, borderRadius: 1000, marginTop: 10 }}
+            textColor={Palette.Info}
+            labelStyle={{
+              fontFamily: KMFont.Medium,
+              fontSize: 15,
+              lineHeight: 29,
+            }}
+            onPress={() => reSendVerEmail()}
+          >
+            ارسال الرابط مجدداً
           </Button>
         </Box>
         <Text

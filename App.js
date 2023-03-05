@@ -27,6 +27,7 @@ import AddressNav from './src/screens/Address.nav';
 import CarNav from './src/screens/Car.nav';
 import RouteAppBar from './src/components/RouteAppBar.component';
 import EntryNav from './src/screens/Entry.nav';
+import BookingNav from './src/screens/Booking.nav';
 import MapNav from './src/screens/Maps.nav';
 import StoreNav from './src/screens/Store.nav';
 // imports ////////////////////////////////
@@ -50,6 +51,7 @@ const APP_SCREENS = [
   { id: 6, component: EntryNav, title: '', name: 'Entry' },
   { id: 7, component: MapNav, title: '', name: 'Map' },
   { id: 8, component: StoreNav, title: '', name: 'Shop' },
+  { id: 9, component: BookingNav, title: 'احجز موعدك', name: 'Booking' },
 ];
 
 // react function /////////////////////////
@@ -61,7 +63,6 @@ function AppNav() {
   const [INIT, SET_INIT] = React.useState(true);
   const [U, SET_U] = React.useState();
 
-  // local handlers:
   const onAuthStateChanged = (user) => {
     SET_U(user);
     if (INIT) SET_INIT(false);

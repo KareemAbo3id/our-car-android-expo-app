@@ -8,20 +8,20 @@ const centersList = [
     image: require('../assets/centers/center-image1.png'),
     services: [
       {
-        serName: 'غسيل (بخار)',
-        serPrice: 250,
+        serName: 'تغيير زيت',
+        serPrice: 120,
       },
       {
-        serName: 'غسيل (بخار)',
-        serPrice: 250,
+        serName: 'تغيير إطارات وترصيص كمبيوتر',
+        serPrice: 280,
       },
       {
-        serName: 'غسيل (بخار)',
-        serPrice: 250,
+        serName: 'فحص كمبيوتر',
+        serPrice: 100,
       },
       {
-        serName: 'غسيل (بخار)',
-        serPrice: 250,
+        serName: 'تغيير بطاريات',
+        serPrice: 240,
       },
     ],
   },
@@ -31,19 +31,19 @@ const centersList = [
     services: [
       {
         serName: 'غسيل (بخار)',
-        serPrice: 250,
+        serPrice: 95,
       },
       {
-        serName: 'غسيل (بخار)',
-        serPrice: 250,
+        serName: 'غسيل (داخلي وخارجي)',
+        serPrice: 33,
       },
       {
-        serName: 'غسيل (بخار)',
-        serPrice: 250,
+        serName: 'غسيل (داخلي)',
+        serPrice: 15,
       },
       {
-        serName: 'غسيل (بخار)',
-        serPrice: 250,
+        serName: 'غسيل (خارجي)',
+        serPrice: 15,
       },
     ],
     rates: 46,

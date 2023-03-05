@@ -6,7 +6,7 @@
 import React from 'react';
 import { View, ScrollView, RefreshControl, Dimensions, StyleSheet } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { Text, Card, Avatar, ActivityIndicator } from 'react-native-paper';
+import { Text, Card, Avatar, ActivityIndicator, Button } from 'react-native-paper';
 import { Stack } from '@react-native-material/core';
 import { LinearGradient } from 'expo-linear-gradient';
 import { firebase } from '../../config';
@@ -239,6 +239,24 @@ export default function ProfileNav() {
             </Text>
           </Card.Content>
         </Card>
+      </Stack>
+      <Stack justify="center" items="start" direction="row" ph={20} pv={5}>
+        <Button
+          mode="text"
+          icon="logout"
+          textColor={Palette.Red}
+          style={{ borderRadius: 1000, marginTop: 10 }}
+          labelStyle={{
+            fontFamily: KMFont.Medium,
+            fontSize: 17,
+            lineHeight: 29,
+          }}
+          onPress={() => {
+            firebase.auth().signOut();
+          }}
+        >
+          تسجيل خروج
+        </Button>
       </Stack>
       <Stack
         justify="center"

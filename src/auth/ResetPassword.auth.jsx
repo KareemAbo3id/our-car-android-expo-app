@@ -34,7 +34,6 @@ export default function ResetPassword() {
   const [localEmail, setLocalEmail] = useState('');
   const [updateEmailSent, setUpdateEmailSent] = useState(false);
 
-  // forget password handler =============:
   const userResetPassword = () => {
     firebase
       .auth()

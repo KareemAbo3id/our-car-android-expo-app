@@ -9,7 +9,7 @@ import React, { useState } from 'react';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Stack } from '@react-native-material/core';
 import { FlatList, Dimensions } from 'react-native';
-import { ActivityIndicator, Card, Text, TextInput } from 'react-native-paper';
+import { ActivityIndicator, Text, TextInput } from 'react-native-paper';
 import { firebase } from '../../config';
 import centersList from '../../data/centersList';
 import CenterItem from '../components/CenterItem.component';

@@ -84,11 +84,16 @@ export default function Signup() {
 
   const [finishAll, setFinishAll] = React.useState(false);
 
+  const [noteVer, setNoteVer] = React.useState('تم تفعيل الحساب');
+  const [noteCar, setNoteCar] = React.useState('تم اضافة بيانات السيارة');
+  const [noteAddress, setNoteAddress] = React.useState('تم ادخال العنوان');
+
   // reset sign up info handler =============:
   const resetSignUpForm = () => {
     setLocalFName('');
     setLocalLName('');
     setLocalEmail('');
+    setNote('');
     setLocalPassword('');
     setConPassword('');
     setTOUChecked(false);
@@ -114,7 +119,8 @@ export default function Signup() {
   };
 
   // Creact Account handler =============:
-  userCreactAccount = async (
+
+  const userCreactAccount = async (
     userFname,
     userLname,
     userEmail,
@@ -167,6 +173,25 @@ export default function Signup() {
       })
       .catch(() => {
         alert('البريد الالكتروني المدخل مسجل بالفعل');
+      });
+  };
+
+  const userAddNotes = async () => {
+    firebase
+      .firestore()
+      .collection('notifys')
+      .add({
+        noteVer,
+        noteCar,
+        noteAddress,
+      })
+      .then(() => {
+        setNoteVer('');
+        setNoteCar('');
+        setNoteAddress('');
+      })
+      .catch((e) => {
+        console.log(e);
       });
   };
 
@@ -781,7 +806,7 @@ export default function Signup() {
                   fontSize: 17,
                   lineHeight: 29,
                 }}
-                onPress={() =>
+                onPress={() => {
                   userCreactAccount(
                     localFName,
                     localLName,
@@ -793,8 +818,9 @@ export default function Signup() {
                     localReg,
                     loaclCity,
                     localDis
-                  )
-                }
+                  );
+                  userAddNotes();
+                }}
               >
                 إنشاء
               </Button>

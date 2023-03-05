@@ -17,7 +17,7 @@ I18nManager.forceRTL(true);
 I18nManager.allowRTL(true);
 
 // react function /////////////////////////
-export default function CenterItem({ image, title, rates, stars, services }) {
+export default function StoreItem({ image, title, rates, stars, price }) {
   // local hook =============:
   const Palette = usePalette();
 
@@ -45,7 +45,9 @@ export default function CenterItem({ image, title, rates, stars, services }) {
       </Card.Content>
       <Card.Content style={{ paddingTop: 10 }}>
         <Stack direction="column" items="start" justify="center" spacing={15}>
-          {services}
+          <Text variant="titleLarge" style={{ fontFamily: KMFont.Bold, color: Palette.Info }}>
+            {price} ريال
+          </Text>
         </Stack>
       </Card.Content>
       <Card.Content
@@ -60,7 +62,6 @@ export default function CenterItem({ image, title, rates, stars, services }) {
         <Button
           mode="elevated"
           elevation={1}
-          icon="calendar"
           textColor={Palette.White}
           buttonColor={Palette.Primary}
           style={{ borderRadius: 1200, flex: 0.5 }}
@@ -70,22 +71,7 @@ export default function CenterItem({ image, title, rates, stars, services }) {
             paddingVertical: 5,
           }}
         >
-          حجز موعد
-        </Button>
-        <Button
-          mode="elevated"
-          elevation={1}
-          icon="phone"
-          textColor={Palette.White}
-          buttonColor={Palette.PrimDark}
-          style={{ borderRadius: 1200, flex: 0.5 }}
-          labelStyle={{
-            fontFamily: KMFont.Regular,
-            fontSize: 18,
-            paddingVertical: 5,
-          }}
-        >
-          تواصل
+          شراء
         </Button>
       </Card.Content>
     </Card>
