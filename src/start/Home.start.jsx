@@ -160,17 +160,18 @@ export default function Home() {
           <Tab.Screen
             name="Map"
             component={MapNav}
-            options={{
-              header: () => (
-                <MapsNavHeader
-                  ProfilePath={() => go.to('Profile')}
-                  SettingPath={() => go.to('Setting')}
-                  NotifyPath={() => go.to('Notify')}
-                  BookingPath={() => go.to('Booking')}
-                  AddressPath={() => go.to('Address')}
-                />
-              ),
-            }}
+            options={{ headerShown: false }}
+            // options={{
+            //   header: () => (
+            //     <MapsNavHeader
+            //       ProfilePath={() => go.to('Profile')}
+            //       SettingPath={() => go.to('Setting')}
+            //       NotifyPath={() => go.to('Notify')}
+            //       BookingPath={() => go.to('Booking')}
+            //       AddressPath={() => go.to('Address')}
+            //     />
+            //   ),
+            // }}
           />
           <Tab.Screen
             name="Shop"

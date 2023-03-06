@@ -15,7 +15,6 @@ import centersList from '../../data/centersList';
 import CenterItem from '../components/CenterItem.component';
 import KMFont from '../hooks/useFont.hook';
 import usePalette from '../hooks/usePalette.hook';
-import useNav from '../hooks/useNav.hook';
 // imports ////////////////////////////////
 
 // eslint-disable-next-line no-unused-vars
@@ -27,7 +26,6 @@ export default function EntryNav() {
   const Palette = usePalette();
   const [refreshing, setRefreshing] = useState(false);
   const [centerSearch, setCenterSearch] = useState('');
-  const go = useNav();
 
   const { currentUser } = firebase.auth();
   const [userAllData, setUserAllData] = React.useState('');
