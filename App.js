@@ -21,15 +21,15 @@ import Home from './src/start/Home.start';
 import Onboard from './src/start/Onboard.start';
 import ResetPassword from './src/auth/ResetPassword.auth';
 import ProfileNav from './src/screens/Profile.nav';
-import NotifyNav from './src/screens/Notify.nav';
+import CartNav from './src/screens/Cart.nav';
 import SettingNav from './src/screens/Setting.nav';
 import AddressNav from './src/screens/Address.nav';
 import CarNav from './src/screens/Car.nav';
 import RouteAppBar from './src/components/RouteAppBar.component';
 import EntryNav from './src/screens/Entry.nav';
 import BookingNav from './src/screens/Booking.nav';
-import MapNav from './src/screens/Maps.nav';
 import StoreNav from './src/screens/Store.nav';
+import ItemDetails from './src/screens/ItemDetails.nav';
 // imports ////////////////////////////////
 
 SplashScreen.preventAutoHideAsync();
@@ -43,15 +43,15 @@ const AUTH_SCREENS = [
 ];
 
 const APP_SCREENS = [
-  { id: 1, component: NotifyNav, title: 'الاشعارات', name: 'Notify' },
+  { id: 1, component: CartNav, title: 'السلة', name: 'Cart' },
   { id: 2, component: ProfileNav, title: 'الحساب', name: 'Profile' },
   { id: 3, component: AddressNav, title: 'العنوان', name: 'Address' },
   { id: 4, component: CarNav, title: 'السيارة', name: 'Car' },
   { id: 5, component: SettingNav, title: 'الاعدادات', name: 'Setting' },
   { id: 6, component: EntryNav, title: '', name: 'Entry' },
-  { id: 7, component: MapNav, title: '', name: 'Map' },
-  { id: 8, component: StoreNav, title: '', name: 'Shop' },
-  { id: 9, component: BookingNav, title: 'احجز موعدك', name: 'Booking' },
+  { id: 7, component: StoreNav, title: '', name: 'Shop' },
+  { id: 8, component: BookingNav, title: 'احجز موعدك', name: 'Booking' },
+  { id: 9, component: ItemDetails, title: 'تفاصيل', name: 'Details' },
 ];
 
 // react function /////////////////////////
@@ -134,6 +134,23 @@ function AppNav() {
   );
 }
 
+function RootNav() {
+  const Palette = usePalette();
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="root"
+        component={AppNav}
+        options={{
+          statusBarColor: Palette.Primary,
+          headerShown: false,
+          animation: 'simple_push',
+        }}
+      />
+    </Stack.Navigator>
+  );
+}
+
 export default function App() {
   // font hook:
   const [fontsLoaded] = useFonts({
@@ -156,7 +173,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <View style={{ flex: 1 }} onLayout={onLayoutRootView}>
-        <AppNav />
+        <RootNav />
       </View>
     </NavigationContainer>
   );

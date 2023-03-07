@@ -165,6 +165,7 @@ export default function Signup() {
                 userCity,
                 userDis,
               },
+              userCart: [],
             });
           })
           .catch(() => {
@@ -173,25 +174,6 @@ export default function Signup() {
       })
       .catch(() => {
         alert('البريد الالكتروني المدخل مسجل بالفعل');
-      });
-  };
-
-  const userAddNotes = async () => {
-    firebase
-      .firestore()
-      .collection('notifys')
-      .add({
-        noteVer,
-        noteCar,
-        noteAddress,
-      })
-      .then(() => {
-        setNoteVer('');
-        setNoteCar('');
-        setNoteAddress('');
-      })
-      .catch((e) => {
-        console.log(e);
       });
   };
 

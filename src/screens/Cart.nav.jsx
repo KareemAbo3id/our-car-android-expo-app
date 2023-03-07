@@ -1,3 +1,4 @@
+/* eslint-disable no-else-return */
 /* eslint-disable array-callback-return */
 /* eslint-disable consistent-return */
 /* eslint-disable react/no-array-index-key */
@@ -8,49 +9,49 @@
 import React from 'react';
 import { ScrollView, StyleSheet, RefreshControl, View } from 'react-native';
 import { Stack } from '@react-native-material/core';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { ActivityIndicator, Text } from 'react-native-paper';
 import { firebase } from '../../config';
 import KMFont from '../hooks/useFont.hook';
 import usePalette from '../hooks/usePalette.hook';
-import NotifyItem from '../components/NotifyItem.component';
+import CartItem from '../components/CartItem.component';
 // imports ////////////////////////////////
 
-// const notificationsList = [
-//   { id: 1, message: 'تم تفعيل الحساب' },
-//   { id: 2, message: 'تم اضافة بيانات السيارة' },
-//   { id: 3, message: 'تم ادخال العنوان' },
-// ];
-
 // react function /////////////////////////
-export default function NotifyNav() {
+export default function CartNav() {
   // local hooks:
   const Palette = usePalette();
   const [refreshing, setRefreshing] = React.useState(false);
+
+  const { currentUser } = firebase.auth();
   const [userAllData, setUserAllData] = React.useState([]);
 
   // local handlers:
 
   // get user data =============:
-  const getUserNofifys = () => {
+  const getUserAllData = () => {
     firebase
       .firestore()
-      .collection('notifys')
-      .onSnapshot((snapshot) => {
-        const newNotes = [];
-        snapshot.forEach((doc) => {
-          const { note } = doc.data();
-
-          newNotes.push({ note, id: doc.id });
-        });
-        setUserAllData(newNotes);
+      .collection('users')
+      .doc(currentUser?.uid)
+      .get()
+      .then((snapshot) => {
+        if (snapshot.exists) {
+          if (setUserAllData(snapshot?.data().userCart)) {
+            setUserAllData(snapshot?.data().userCart);
+          }
+        } else {
+          // eslint-disable-next-line no-console
+          console.log('user does not exist');
+        }
       });
   };
-  React.useEffect(() => getUserNofifys(), []);
+  React.useEffect(() => getUserAllData(), []);
 
   // onRefresh =============:
   const onRefresh = React.useCallback(() => {
     setRefreshing(true);
-    getUserNofifys();
+    getUserAllData();
     setTimeout(() => {
       setRefreshing(false);
     }, 800);
@@ -72,25 +73,31 @@ export default function NotifyNav() {
         <RefreshControl colors={[Palette.Primary]} refreshing={refreshing} onRefresh={onRefresh} />
       }
     >
-      <Stack
-        justify="center"
-        items="stretch"
-        direction="column"
-        spacing={10}
-        ph={10}
-        mt={20}
-        pv={5}
-      >
-        <Text variant="titleSmall" style={{ fontFamily: KMFont.Bold, color: Palette.SecDark }}>
-          الاشعارات
-        </Text>
-
-        {userAllData.map((item, id) => {
-          if (typeof item.note === 'string') {
-            return <NotifyItem key={id} date={item.date} note={item.note} />;
-          }
-        })}
-      </Stack>
+      {userAllData.length < 1 ? (
+        <Stack justify="center" items="center" mt={50} spacing={10} pv={5}>
+          <MaterialCommunityIcons name="cancel" size={50} color={Palette.SecDark} />
+          <Text
+            variant="headlineSmall"
+            style={{ fontFamily: KMFont.Regular, color: Palette.SecDark }}
+          >
+            {userAllData.length < 1 ? 'لا يوجد طلبات' : 'السلة'}
+          </Text>
+        </Stack>
+      ) : (
+        <Stack
+          justify="center"
+          items="stretch"
+          direction="column"
+          spacing={10}
+          ph={10}
+          mt={20}
+          pv={5}
+        >
+          {userAllData.map((item, id) => {
+            return <CartItem key={id} note={item} />;
+          })}
+        </Stack>
+      )}
     </ScrollView>
   );
 }

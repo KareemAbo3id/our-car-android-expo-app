@@ -6,7 +6,7 @@
 import React from 'react';
 import { View, ScrollView, RefreshControl, Dimensions, StyleSheet } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { Text, Card, Avatar, ActivityIndicator, Button } from 'react-native-paper';
+import { Text, Card, Avatar, ActivityIndicator, Button, Divider } from 'react-native-paper';
 import { Stack } from '@react-native-material/core';
 import { LinearGradient } from 'expo-linear-gradient';
 import { firebase } from '../../config';
@@ -125,7 +125,7 @@ export default function ProfileNav() {
         <Card
           mode="elevated"
           onPress={() => {
-            go.to('Address');
+            go.to('home');
           }}
           style={{ backgroundColor: Palette.White }}
         >
@@ -240,30 +240,45 @@ export default function ProfileNav() {
           </Card.Content>
         </Card>
       </Stack>
-      <Stack justify="center" items="start" direction="row" ph={20} pv={5}>
-        <Button
-          mode="text"
-          icon="logout"
-          textColor={Palette.Red}
-          style={{ borderRadius: 1000, marginTop: 10 }}
-          labelStyle={{
-            fontFamily: KMFont.Medium,
-            fontSize: 17,
-            lineHeight: 29,
-          }}
+      <Divider
+        style={{ backgroundColor: Palette.Black, marginVertical: 15, marginHorizontal: 20 }}
+      />
+      <Stack justify="center" items="stretch" direction="column" ph={20} spacing={10}>
+        <Card
           onPress={() => {
             firebase.auth().signOut();
           }}
+          mode="elevated"
+          style={{ backgroundColor: Palette.White }}
         >
-          تسجيل خروج
-        </Button>
+          <Card.Content
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'flex-start',
+              flexWrap: 'wrap',
+              gap: 5,
+            }}
+          >
+            <MaterialCommunityIcons name="logout" size={18} color={Palette.Red} />
+            <Text
+              variant="bodyLarge"
+              style={{
+                fontFamily: KMFont.Medium,
+                color: Palette.Red,
+              }}
+            >
+              تسجيل خروج
+            </Text>
+          </Card.Content>
+        </Card>
       </Stack>
       <Stack
         justify="center"
         items="stretch"
         direction="column"
         ph={20}
-        mt={20}
+        mv={20}
         pv={5}
         spacing={10}
       >

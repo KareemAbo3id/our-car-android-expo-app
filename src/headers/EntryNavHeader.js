@@ -20,7 +20,7 @@ const { height, width } = Dimensions.get('window');
 export default function EntryNavHeader({
   ProfilePath,
   SettingPath,
-  NotifyPath,
+  CartPath,
   BookingPath,
   CarPath,
 }) {
@@ -97,8 +97,8 @@ export default function EntryNavHeader({
             }}
           />
           <MaterialCommunityIcons
-            onPress={NotifyPath}
-            name="bell"
+            onPress={CartPath}
+            name="cart"
             size={25}
             color={Palette.Primary}
             style={{

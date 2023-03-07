@@ -26,8 +26,6 @@ export default function AddressNav() {
   const [loaclCity, setLocalCity] = React.useState('');
   const [localDis, setLocalDis] = React.useState('');
 
-  const [note, setNote] = React.useState('تم تحديث العنوان');
-
   // local handlers:
   // get user data =============:
   const getUserAllData = () => {
@@ -62,20 +60,6 @@ export default function AddressNav() {
           userCity,
           userDis,
         },
-      })
-      .then(() => {
-        firebase
-          .firestore()
-          .collection('notifys')
-          .add({
-            note,
-          })
-          .then(() => {
-            setNote('');
-          })
-          .catch((e) => {
-            console.log(e);
-          });
       })
       .then(() => {
         alert('تم تحديث العنوان بنجاح');

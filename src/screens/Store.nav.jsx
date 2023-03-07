@@ -15,7 +15,6 @@ import { firebase } from '../../config';
 import storeList from '../../data/storeList';
 import KMFont from '../hooks/useFont.hook';
 import usePalette from '../hooks/usePalette.hook';
-import useNav from '../hooks/useNav.hook';
 import StoreItem from '../components/StoreItem.component';
 // imports ////////////////////////////////
 
@@ -23,12 +22,11 @@ import StoreItem from '../components/StoreItem.component';
 const { height, width } = Dimensions.get('window');
 
 // react function /////////////////////////
-export default function StoreNav() {
+export default function StoreNav({ navigation }) {
   // local hooks:
   const Palette = usePalette();
   const [refreshing, setRefreshing] = useState(false);
   const [centerSearch, setCenterSearch] = useState('');
-  const go = useNav();
 
   const { currentUser } = firebase.auth();
   const [userAllData, setUserAllData] = React.useState('');
@@ -110,6 +108,9 @@ export default function StoreNav() {
                 describe={item.describe}
                 rates={item.rates}
                 price={item.Price}
+                onPressCard={() => {
+                  navigation.navigate('Details', { title: item.title });
+                }}
                 stars={item.stars.map((i, j) => {
                   if (i === 1) {
                     return <MaterialCommunityIcons key={j} name="star" color={Palette.Warning2} />;

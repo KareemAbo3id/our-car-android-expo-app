@@ -6,7 +6,7 @@
 /* eslint-disable global-require */
 /* eslint-disable import/no-useless-path-segments */
 import React from 'react';
-import { I18nManager } from 'react-native';
+import { I18nManager, Image } from 'react-native';
 import { Stack } from '@react-native-material/core';
 import { Button, Card, Text } from 'react-native-paper';
 import KMFont from '../hooks/useFont.hook';
@@ -17,13 +17,14 @@ I18nManager.forceRTL(true);
 I18nManager.allowRTL(true);
 
 // react function /////////////////////////
-export default function StoreItem({ image, title, rates, stars, price }) {
+export default function StoreItem({ image, title, rates, stars, price, onPressCard }) {
   // local hook =============:
   const Palette = usePalette();
 
   // local ui =============:
   return (
     <Card
+      onPress={onPressCard}
       mode="elevated"
       style={{
         backgroundColor: Palette.White,
@@ -31,8 +32,10 @@ export default function StoreItem({ image, title, rates, stars, price }) {
         marginHorizontal: 20,
       }}
     >
-      <Card.Cover source={image} resizeMode="center" style={{ height: 100 }} />
       <Card.Content style={{ paddingTop: 10 }}>
+        <Stack items="center" mv={10}>
+          <Image source={image} style={{ height: 150 }} resizeMode="contain" />
+        </Stack>
         <Text variant="titleLarge" style={{ fontFamily: KMFont.Bold, color: Palette.Black }}>
           {title}
         </Text>
@@ -56,7 +59,6 @@ export default function StoreItem({ image, title, rates, stars, price }) {
           flexDirection: 'row',
           alignItems: 'center',
           justifyContent: 'center',
-          gap: 15,
         }}
       >
         <Button
@@ -64,14 +66,14 @@ export default function StoreItem({ image, title, rates, stars, price }) {
           elevation={1}
           textColor={Palette.White}
           buttonColor={Palette.Primary}
-          style={{ borderRadius: 1200, flex: 0.5 }}
+          style={{ borderRadius: 1200, flex: 1 }}
           labelStyle={{
             fontFamily: KMFont.Regular,
             fontSize: 18,
             paddingVertical: 5,
           }}
         >
-          شراء
+          اضافة للسلة
         </Button>
       </Card.Content>
     </Card>
