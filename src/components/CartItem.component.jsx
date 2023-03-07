@@ -1,6 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Card, Text } from 'react-native-paper';
 import KMFont from '../hooks/useFont.hook';
 import usePalette from '../hooks/usePalette.hook';

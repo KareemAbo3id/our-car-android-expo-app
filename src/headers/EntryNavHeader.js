@@ -1,10 +1,11 @@
+/* eslint-disable react-native/no-raw-text */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-native/no-color-literals */
 /* eslint-disable object-curly-newline */
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import { StyleSheet, Dimensions } from 'react-native';
-import { ActivityIndicator, Appbar, Card, Text } from 'react-native-paper';
+import { ActivityIndicator, Appbar, Button, Card, Text } from 'react-native-paper';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Stack } from '@react-native-material/core';
 import { firebase } from '../../config';
@@ -96,18 +97,16 @@ export default function EntryNavHeader({
               elevation: 2,
             }}
           />
-          <MaterialCommunityIcons
+          <Button
+            mode="elevated"
+            elevation={2}
+            icon="cart"
+            style={{ backgroundColor: Palette.White }}
+            labelStyle={{ fontFamily: KMFont.Black, color: Palette.Primary }}
             onPress={CartPath}
-            name="cart"
-            size={25}
-            color={Palette.Primary}
-            style={{
-              backgroundColor: Palette.White,
-              borderRadius: 1000,
-              padding: 5,
-              elevation: 2,
-            }}
-          />
+          >
+            السلة
+          </Button>
         </Stack>
       </Appbar>
       <Stack w="100%" ph={25} pb={10} direction="row" items="center" justify="between" spacing={10}>

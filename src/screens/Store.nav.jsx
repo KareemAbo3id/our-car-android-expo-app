@@ -107,9 +107,20 @@ export default function StoreNav({ navigation }) {
                 title={item.title}
                 describe={item.describe}
                 rates={item.rates}
-                price={item.Price}
+                price={item.price}
+                altPrice={item.altPrice}
                 onPressCard={() => {
-                  navigation.navigate('Details', { title: item.title });
+                  navigation.navigate('Details', {
+                    id: item.id,
+                    title: item.title,
+                    price: item.price,
+                    image: item.image,
+                    stars: item.stars,
+                    rates: item.rates,
+                    prodNo: item.prodNo,
+                    altPrice: item.altPrice,
+                    packageNo: item.packageNo,
+                  });
                 }}
                 stars={item.stars.map((i, j) => {
                   if (i === 1) {

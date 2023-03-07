@@ -8,7 +8,7 @@
 import React from 'react';
 import { I18nManager, Image } from 'react-native';
 import { Stack } from '@react-native-material/core';
-import { Button, Card, Text } from 'react-native-paper';
+import { Card, Text } from 'react-native-paper';
 import KMFont from '../hooks/useFont.hook';
 import usePalette from '../hooks/usePalette.hook';
 // imports ////////////////////////////////
@@ -47,34 +47,14 @@ export default function StoreItem({ image, title, rates, stars, price, onPressCa
         </Stack>
       </Card.Content>
       <Card.Content style={{ paddingTop: 10 }}>
-        <Stack direction="column" items="start" justify="center" spacing={15}>
+        <Stack direction="column" items="start" justify="center" spacing={0}>
           <Text variant="titleLarge" style={{ fontFamily: KMFont.Bold, color: Palette.Info }}>
             {price} ريال
           </Text>
+          <Text variant="bodyMedium" style={{ fontFamily: KMFont.Medium, color: Palette.SecDark }}>
+            السعر شامل ضريبة القيمة المضافة
+          </Text>
         </Stack>
-      </Card.Content>
-      <Card.Content
-        style={{
-          paddingTop: 20,
-          flexDirection: 'row',
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
-      >
-        <Button
-          mode="elevated"
-          elevation={1}
-          textColor={Palette.White}
-          buttonColor={Palette.Primary}
-          style={{ borderRadius: 1200, flex: 1 }}
-          labelStyle={{
-            fontFamily: KMFont.Regular,
-            fontSize: 18,
-            paddingVertical: 5,
-          }}
-        >
-          اضافة للسلة
-        </Button>
       </Card.Content>
     </Card>
   );

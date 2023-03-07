@@ -125,7 +125,7 @@ export default function ProfileNav() {
         <Card
           mode="elevated"
           onPress={() => {
-            go.to('home');
+            go.to('Address');
           }}
           style={{ backgroundColor: Palette.White }}
         >
@@ -243,7 +243,38 @@ export default function ProfileNav() {
       <Divider
         style={{ backgroundColor: Palette.Black, marginVertical: 15, marginHorizontal: 20 }}
       />
-      <Stack justify="center" items="stretch" direction="column" ph={20} spacing={10}>
+      <Stack justify="center" items="stretch" direction="column" ph={20} pv={5} spacing={10}>
+        <Card
+          mode="elevated"
+          onPress={() => {
+            go.to('Setting');
+          }}
+          style={{ backgroundColor: Palette.White }}
+        >
+          <Card.Content
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'flex-start',
+              flexWrap: 'wrap',
+              gap: 5,
+            }}
+          >
+            <MaterialCommunityIcons name="cog" size={18} color={Palette.Primary2} />
+            <Text
+              variant="bodyLarge"
+              style={{
+                fontFamily: KMFont.Medium,
+                color: Palette.Primary2,
+              }}
+            >
+              الاعدادات
+            </Text>
+          </Card.Content>
+        </Card>
+      </Stack>
+
+      <Stack justify="center" items="stretch" direction="column" ph={20} mt={15} spacing={10}>
         <Card
           onPress={() => {
             firebase.auth().signOut();

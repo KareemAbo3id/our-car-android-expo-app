@@ -64,20 +64,6 @@ export default function CarNav() {
         },
       })
       .then(() => {
-        firebase
-          .firestore()
-          .collection('notifys')
-          .add({
-            note,
-          })
-          .then(() => {
-            setNote('');
-          })
-          .catch((e) => {
-            console.log(e);
-          });
-      })
-      .then(() => {
         alert('تم تحديث بيانات السيارة بنجاح');
       })
       .catch(() => alert('حدث خطأ. حاول مرة اخرة'));

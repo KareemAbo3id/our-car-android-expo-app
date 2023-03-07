@@ -51,7 +51,7 @@ const APP_SCREENS = [
   { id: 6, component: EntryNav, title: '', name: 'Entry' },
   { id: 7, component: StoreNav, title: '', name: 'Shop' },
   { id: 8, component: BookingNav, title: 'احجز موعدك', name: 'Booking' },
-  { id: 9, component: ItemDetails, title: 'تفاصيل', name: 'Details' },
+  { id: 9, component: ItemDetails, title: 'تفاصيل المنتج', name: 'Details' },
 ];
 
 // react function /////////////////////////

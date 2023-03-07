@@ -222,7 +222,7 @@ export default function SettingNav() {
             items="stretch"
             direction="column"
             spacing={10}
-            ph={10}
+            ph={20}
             mt={20}
             pv={5}
           >
@@ -333,7 +333,7 @@ export default function SettingNav() {
             items="stretch"
             direction="column"
             spacing={10}
-            ph={10}
+            ph={20}
             mt={20}
             pv={5}
           >
