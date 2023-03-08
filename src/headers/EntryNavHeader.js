@@ -18,13 +18,7 @@ import KMFont from '../hooks/useFont.hook';
 const { height, width } = Dimensions.get('window');
 
 // react function /////////////////////////
-export default function EntryNavHeader({
-  ProfilePath,
-  SettingPath,
-
-  BookingPath,
-  CarPath,
-}) {
+export default function EntryNavHeader({ ProfilePath, SettingPath, AddressPath, CarPath }) {
   // local hooks:
   const Palette = usePalette();
   const { currentUser } = firebase.auth();
@@ -100,24 +94,8 @@ export default function EntryNavHeader({
         </Stack>
       </Appbar>
       <Stack w="100%" ph={25} pb={10} direction="row" items="center" justify="between" spacing={10}>
-        {/* booking date */}
-        <Card onPress={BookingPath} style={{ backgroundColor: Palette.Info, flex: 0.6 }}>
-          <Card.Content
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              gap: 2,
-            }}
-          >
-            <MaterialCommunityIcons name="calendar" color={Palette.White} size={20} />
-            <Text variant="bodyLarge" style={{ color: Palette.White, fontFamily: KMFont.Medium }}>
-              الاربعاء 09:00
-            </Text>
-          </Card.Content>
-        </Card>
         {/* user car */}
-        <Card onPress={CarPath} style={{ backgroundColor: Palette.White, flex: 0.4 }}>
+        <Card onPress={CarPath} style={{ backgroundColor: Palette.White, flex: 0.5 }}>
           <Card.Content
             style={{
               flexDirection: 'row',
@@ -133,6 +111,28 @@ export default function EntryNavHeader({
                 style={{ color: Palette.PrimDark, fontFamily: KMFont.Medium }}
               >
                 {userAllData?.userCar?.userMake}
+              </Text>
+            ) : (
+              <ActivityIndicator animating color={Palette.Primary} />
+            )}
+          </Card.Content>
+        </Card>
+        <Card onPress={AddressPath} style={{ backgroundColor: Palette.White, flex: 0.5 }}>
+          <Card.Content
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              gap: 2,
+            }}
+          >
+            <MaterialCommunityIcons name="map-marker" color={Palette.PrimDark} size={20} />
+            {userAllData?.userAddress?.userDis ? (
+              <Text
+                variant="bodyLarge"
+                style={{ color: Palette.PrimDark, fontFamily: KMFont.Medium }}
+              >
+                {userAllData?.userAddress?.userDis}
               </Text>
             ) : (
               <ActivityIndicator animating color={Palette.Primary} />

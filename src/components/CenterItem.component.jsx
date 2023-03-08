@@ -6,9 +6,9 @@
 /* eslint-disable global-require */
 /* eslint-disable import/no-useless-path-segments */
 import React from 'react';
-import { I18nManager, Linking } from 'react-native';
+import { I18nManager } from 'react-native';
 import { Stack } from '@react-native-material/core';
-import { Button, Card, Text } from 'react-native-paper';
+import { Card, Text } from 'react-native-paper';
 import KMFont from '../hooks/useFont.hook';
 import usePalette from '../hooks/usePalette.hook';
 // imports ////////////////////////////////
@@ -17,13 +17,14 @@ I18nManager.forceRTL(true);
 I18nManager.allowRTL(true);
 
 // react function /////////////////////////
-export default function CenterItem({ image, title, rates, stars, services }) {
+export default function CenterItem({ image, title, rates, stars, services, onPressCard }) {
   // local hook =============:
   const Palette = usePalette();
 
   // local ui =============:
   return (
     <Card
+      onPress={onPressCard}
       mode="elevated"
       style={{
         backgroundColor: Palette.White,
@@ -47,49 +48,6 @@ export default function CenterItem({ image, title, rates, stars, services }) {
         <Stack direction="column" items="start" justify="center" spacing={15}>
           {services}
         </Stack>
-      </Card.Content>
-      <Card.Content
-        style={{
-          paddingTop: 20,
-          flexDirection: 'row',
-          alignItems: 'center',
-          justifyContent: 'center',
-          gap: 15,
-        }}
-      >
-        <Button
-          mode="elevated"
-          elevation={1}
-          icon="calendar"
-          textColor={Palette.White}
-          buttonColor={Palette.Primary}
-          style={{ borderRadius: 1200, flex: 0.5 }}
-          labelStyle={{
-            fontFamily: KMFont.Regular,
-            fontSize: 18,
-            paddingVertical: 5,
-          }}
-        >
-          حجز موعد
-        </Button>
-        <Button
-          mode="elevated"
-          elevation={1}
-          icon="phone"
-          textColor={Palette.White}
-          buttonColor={Palette.PrimDark}
-          onPress={() => {
-            Linking.openURL(`tel:0510101010`);
-          }}
-          style={{ borderRadius: 1200, flex: 0.5 }}
-          labelStyle={{
-            fontFamily: KMFont.Regular,
-            fontSize: 18,
-            paddingVertical: 5,
-          }}
-        >
-          تواصل
-        </Button>
       </Card.Content>
     </Card>
   );

@@ -21,7 +21,7 @@ import usePalette from '../hooks/usePalette.hook';
 const { height, width } = Dimensions.get('window');
 
 // react function /////////////////////////
-export default function EntryNav() {
+export default function EntryNav({ navigation }) {
   // local hooks:
   const Palette = usePalette();
   const [refreshing, setRefreshing] = useState(false);
@@ -105,7 +105,19 @@ export default function EntryNav() {
                 image={item.image}
                 title={item.title}
                 describe={item.describe}
+                location={item.location}
                 rates={item.rates}
+                onPressCard={() => {
+                  navigation.navigate('Center', {
+                    id: item.id,
+                    location: item.location,
+                    title: item.title,
+                    rates: item.rates,
+                    stars: item.stars,
+                    image: item.image,
+                    services: item.services,
+                  });
+                }}
                 stars={item.stars.map((i, j) => {
                   if (i === 1) {
                     return <MaterialCommunityIcons key={j} name="star" color={Palette.Warning2} />;

@@ -25,7 +25,7 @@ const mm = String(today.getMonth() + 1).padStart(2, '0');
 const yyyy = today.getFullYear();
 
 // react function /////////////////////////
-export default function InvoiceNav({ route }) {
+export default function ReceiptNav({ route }) {
   // local hooks:
   const [status, requestPermission] = MediaLibrary.usePermissions();
   const imageRef = useRef();

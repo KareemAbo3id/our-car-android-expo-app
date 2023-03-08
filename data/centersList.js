@@ -2,6 +2,7 @@
 const centersList = [
   {
     id: 1,
+    location: 'https://maps.app.goo.gl/SxtYQG6c3WHiBn5z5?g_st=ic',
     title: 'ورشة صندوق الأدوات لصيانة السيارات',
     rates: 50,
     stars: [1, 1, 1, 1, 0],
@@ -9,41 +10,55 @@ const centersList = [
     services: [
       {
         serName: 'تغيير زيت',
+        isChecked: false,
         serPrice: 120,
       },
       {
-        serName: 'تغيير إطارات وترصيص كمبيوتر',
+        serName: 'ترصيص إطارات',
+        isChecked: false,
         serPrice: 280,
       },
       {
         serName: 'فحص كمبيوتر',
+        isChecked: false,
         serPrice: 100,
       },
       {
         serName: 'تغيير بطاريات',
+        isChecked: false,
         serPrice: 240,
       },
     ],
   },
   {
     id: 2,
+    location: 'https://maps.app.goo.gl/3qf27qoKrEeTikA98?g_st=ic',
     title: 'مغسلة الشارقة للسيارات',
     services: [
       {
         serName: 'غسيل (بخار)',
+        isChecked: false,
         serPrice: 95,
       },
       {
         serName: 'غسيل (داخلي وخارجي)',
+        isChecked: false,
         serPrice: 33,
       },
       {
         serName: 'غسيل (داخلي)',
+        isChecked: false,
         serPrice: 15,
       },
       {
         serName: 'غسيل (خارجي)',
+        isChecked: false,
         serPrice: 15,
+      },
+      {
+        serName: 'غسيل (ماكينة)',
+        isChecked: false,
+        serPrice: 50,
       },
     ],
     rates: 46,
@@ -52,23 +67,33 @@ const centersList = [
   },
   {
     id: 3,
+    location: 'https://maps.app.goo.gl/KVJSCbuZfgQSb5Er6?g_st=ic',
     title: 'مركز وائل لصيانة السيارات',
     services: [
       {
-        serName: 'غسيل (بخار)',
-        serPrice: 250,
+        serName: 'تغيير زيت',
+        isChecked: false,
+        serPrice: 120,
       },
       {
-        serName: 'غسيل (بخار)',
-        serPrice: 250,
+        serName: 'ترصيص إطارات',
+        isChecked: false,
+        serPrice: 280,
       },
       {
-        serName: 'غسيل (بخار)',
-        serPrice: 250,
+        serName: 'فحص كمبيوتر',
+        isChecked: false,
+        serPrice: 100,
       },
       {
-        serName: 'غسيل (بخار)',
-        serPrice: 250,
+        serName: 'تغيير بطاريات',
+        isChecked: false,
+        serPrice: 240,
+      },
+      {
+        serName: 'تغيير عفشة',
+        isChecked: false,
+        serPrice: 120,
       },
     ],
     rates: 42,
@@ -77,23 +102,33 @@ const centersList = [
   },
   {
     id: 4,
+    location: 'https://maps.app.goo.gl/oTVxFmiMQ6Q4Dq12A?g_st=ic',
     title: 'مجموعة عز العرب لغسيل السيارات',
     services: [
       {
         serName: 'غسيل (بخار)',
-        serPrice: 250,
+        isChecked: false,
+        serPrice: 95,
       },
       {
-        serName: 'غسيل (بخار)',
-        serPrice: 250,
+        serName: 'غسيل (داخلي وخارجي)',
+        isChecked: false,
+        serPrice: 33,
       },
       {
-        serName: 'غسيل (بخار)',
-        serPrice: 250,
+        serName: 'غسيل (داخلي)',
+        isChecked: false,
+        serPrice: 15,
       },
       {
-        serName: 'غسيل (بخار)',
-        serPrice: 250,
+        serName: 'غسيل (خارجي)',
+        isChecked: false,
+        serPrice: 15,
+      },
+      {
+        serName: 'غسيل (ماكينة)',
+        isChecked: false,
+        serPrice: 50,
       },
     ],
     rates: 35,
@@ -102,23 +137,33 @@ const centersList = [
   },
   {
     id: 5,
+    location: 'https://maps.app.goo.gl/RCH3me9qfCTJ4mtt9?g_st=ic',
     title: 'مراكز تغيير زيوت شل المعتمدة',
     services: [
       {
-        serName: 'غسيل (بخار)',
-        serPrice: 250,
+        serName: 'تغيير زيت',
+        isChecked: false,
+        serPrice: 120,
       },
       {
-        serName: 'غسيل (بخار)',
-        serPrice: 250,
+        serName: 'ترصيص إطارات',
+        isChecked: false,
+        serPrice: 280,
       },
       {
-        serName: 'غسيل (بخار)',
-        serPrice: 250,
+        serName: 'فحص كمبيوتر',
+        isChecked: false,
+        serPrice: 100,
       },
       {
-        serName: 'غسيل (بخار)',
-        serPrice: 250,
+        serName: 'تغيير بطاريات',
+        isChecked: false,
+        serPrice: 240,
+      },
+      {
+        serName: 'تغيير عفشة',
+        isChecked: false,
+        serPrice: 120,
       },
     ],
     rates: 33,
@@ -127,23 +172,23 @@ const centersList = [
   },
   {
     id: 6,
+    location: 'https://maps.app.goo.gl/qV9YTQywk7cozR3cA?g_st=ic',
     title: 'شركة هاى تك لخدمة وسائل النقل',
     services: [
       {
-        serName: 'غسيل (بخار)',
-        serPrice: 250,
+        serName: 'تغيير زيت',
+        isChecked: false,
+        serPrice: 120,
       },
       {
-        serName: 'غسيل (بخار)',
-        serPrice: 250,
+        serName: 'تغيير بطاريات',
+        isChecked: false,
+        serPrice: 240,
       },
       {
-        serName: 'غسيل (بخار)',
-        serPrice: 250,
-      },
-      {
-        serName: 'غسيل (بخار)',
-        serPrice: 250,
+        serName: 'تغيير عفشة',
+        isChecked: false,
+        serPrice: 120,
       },
     ],
     rates: 29,
@@ -152,23 +197,33 @@ const centersList = [
   },
   {
     id: 7,
+    location: 'https://maps.app.goo.gl/4EK5vJiTL7nFUuj59?g_st=ic',
     title: 'مركز الوطنية لخدمة وصيانة السيارات',
     services: [
       {
-        serName: 'غسيل (بخار)',
-        serPrice: 250,
+        serName: 'تغيير زيت',
+        isChecked: false,
+        serPrice: 120,
       },
       {
-        serName: 'غسيل (بخار)',
-        serPrice: 250,
+        serName: 'تغيير بطاريات',
+        isChecked: false,
+        serPrice: 240,
       },
       {
-        serName: 'غسيل (بخار)',
-        serPrice: 250,
+        serName: 'غسيل (داخلي)',
+        isChecked: false,
+        serPrice: 15,
       },
       {
-        serName: 'غسيل (بخار)',
-        serPrice: 250,
+        serName: 'غسيل (خارجي)',
+        isChecked: false,
+        serPrice: 15,
+      },
+      {
+        serName: 'غسيل (ماكينة)',
+        isChecked: false,
+        serPrice: 50,
       },
     ],
     rates: 24,
@@ -177,23 +232,33 @@ const centersList = [
   },
   {
     id: 8,
+    location: 'https://maps.app.goo.gl/FibkKXYSQVcbNny38?g_st=ic',
     title: 'شركة اليسر لصناعة هياكل السيارات',
     services: [
       {
-        serName: 'غسيل (بخار)',
-        serPrice: 250,
+        serName: 'غسيل (داخلي)',
+        isChecked: false,
+        serPrice: 15,
       },
       {
-        serName: 'غسيل (بخار)',
-        serPrice: 250,
+        serName: 'تغيير زيت',
+        isChecked: false,
+        serPrice: 120,
       },
       {
-        serName: 'غسيل (بخار)',
-        serPrice: 250,
+        serName: 'تغيير بطاريات',
+        isChecked: false,
+        serPrice: 240,
       },
       {
-        serName: 'غسيل (بخار)',
-        serPrice: 250,
+        serName: 'غسيل (خارجي)',
+        isChecked: false,
+        serPrice: 15,
+      },
+      {
+        serName: 'غسيل (ماكينة)',
+        isChecked: false,
+        serPrice: 50,
       },
     ],
     rates: 21,
@@ -202,23 +267,23 @@ const centersList = [
   },
   {
     id: 9,
+    location: 'https://maps.app.goo.gl/fMqkUfrUMpK1DLMw7?g_st=ic',
     title: 'ورشة انطون للسيارات',
     services: [
       {
-        serName: 'غسيل (بخار)',
-        serPrice: 250,
+        serName: 'تغيير زيت',
+        isChecked: false,
+        serPrice: 120,
       },
       {
-        serName: 'غسيل (بخار)',
-        serPrice: 250,
+        serName: 'تغيير بطاريات',
+        isChecked: false,
+        serPrice: 240,
       },
       {
-        serName: 'غسيل (بخار)',
-        serPrice: 250,
-      },
-      {
-        serName: 'غسيل (بخار)',
-        serPrice: 250,
+        serName: 'تغيير عفشة',
+        isChecked: false,
+        serPrice: 120,
       },
     ],
     rates: 18,
@@ -227,278 +292,38 @@ const centersList = [
   },
   {
     id: 10,
+    location: 'https://maps.app.goo.gl/AUTNhV4txE4FKJpTA?g_st=ic',
     title: 'ورشة أبو غالى اوتوموتيف',
     services: [
       {
-        serName: 'غسيل (بخار)',
-        serPrice: 250,
+        serName: 'تغيير زيت',
+        isChecked: false,
+        serPrice: 120,
       },
       {
-        serName: 'غسيل (بخار)',
-        serPrice: 250,
+        serName: 'ترصيص إطارات',
+        isChecked: false,
+        serPrice: 280,
       },
       {
-        serName: 'غسيل (بخار)',
-        serPrice: 250,
+        serName: 'فحص كمبيوتر',
+        isChecked: false,
+        serPrice: 100,
       },
       {
-        serName: 'غسيل (بخار)',
-        serPrice: 250,
+        serName: 'تغيير بطاريات',
+        isChecked: false,
+        serPrice: 240,
+      },
+      {
+        serName: 'تغيير عفشة',
+        isChecked: false,
+        serPrice: 120,
       },
     ],
     rates: 15,
     stars: [1, 1, 1, 1, 1],
     image: require('../assets/centers/center-image10.png'),
-  },
-  {
-    id: 11,
-    title: 'مركز العالمي للإطارات والبطاريات',
-    services: [
-      {
-        serName: 'غسيل (بخار)',
-        serPrice: 250,
-      },
-      {
-        serName: 'غسيل (بخار)',
-        serPrice: 250,
-      },
-      {
-        serName: 'غسيل (بخار)',
-        serPrice: 250,
-      },
-      {
-        serName: 'غسيل (بخار)',
-        serPrice: 250,
-      },
-    ],
-    rates: 12,
-    stars: [1, 1, 1, 0, 0],
-    image: require('../assets/centers/center-image11.png'),
-  },
-  {
-    id: 12,
-    title: 'مراكز الوعلان لصيانة السيارات',
-    services: [
-      {
-        serName: 'غسيل (بخار)',
-        serPrice: 250,
-      },
-      {
-        serName: 'غسيل (بخار)',
-        serPrice: 250,
-      },
-      {
-        serName: 'غسيل (بخار)',
-        serPrice: 250,
-      },
-      {
-        serName: 'غسيل (بخار)',
-        serPrice: 250,
-      },
-    ],
-    rates: 9,
-    stars: [1, 1, 1, 1, 0],
-    image: require('../assets/centers/center-image12.png'),
-  },
-  {
-    id: 13,
-    title: 'مركز الخليج لصيانة وغسيل السيارات',
-    services: [
-      {
-        serName: 'غسيل (بخار)',
-        serPrice: 250,
-      },
-      {
-        serName: 'غسيل (بخار)',
-        serPrice: 250,
-      },
-      {
-        serName: 'غسيل (بخار)',
-        serPrice: 250,
-      },
-      {
-        serName: 'غسيل (بخار)',
-        serPrice: 250,
-      },
-    ],
-    rates: 7,
-    stars: [1, 0, 0, 0, 0],
-    image: require('../assets/centers/center-image13.png'),
-  },
-  {
-    id: 14,
-    title: 'ورشة الرفيق للصيانة الشاملة',
-    services: [
-      {
-        serName: 'غسيل (بخار)',
-        serPrice: 250,
-      },
-      {
-        serName: 'غسيل (بخار)',
-        serPrice: 250,
-      },
-      {
-        serName: 'غسيل (بخار)',
-        serPrice: 250,
-      },
-      {
-        serName: 'غسيل (بخار)',
-        serPrice: 250,
-      },
-    ],
-    rates: 6,
-    stars: [1, 1, 1, 1, 1],
-    image: require('../assets/centers/center-image14.png'),
-  },
-  {
-    id: 15,
-    title: 'مركز شام لصيانة السيارات',
-    services: [
-      {
-        serName: 'غسيل (بخار)',
-        serPrice: 250,
-      },
-      {
-        serName: 'غسيل (بخار)',
-        serPrice: 250,
-      },
-      {
-        serName: 'غسيل (بخار)',
-        serPrice: 250,
-      },
-      {
-        serName: 'غسيل (بخار)',
-        serPrice: 250,
-      },
-    ],
-    rates: 5,
-    stars: [1, 1, 1, 1, 0],
-    image: require('../assets/centers/center-image15.png'),
-  },
-  {
-    id: 16,
-    title: 'مركز النجوم للنظافة الشاملة سيارات',
-    services: [
-      {
-        serName: 'غسيل (بخار)',
-        serPrice: 250,
-      },
-      {
-        serName: 'غسيل (بخار)',
-        serPrice: 250,
-      },
-      {
-        serName: 'غسيل (بخار)',
-        serPrice: 250,
-      },
-      {
-        serName: 'غسيل (بخار)',
-        serPrice: 250,
-      },
-    ],
-    rates: 4,
-    stars: [1, 1, 1, 1, 0],
-    image: require('../assets/centers/center-image16.png'),
-  },
-  {
-    id: 17,
-    title: 'محطة اوتو للاطارات والقير',
-    services: [
-      {
-        serName: 'غسيل (بخار)',
-        serPrice: 250,
-      },
-      {
-        serName: 'غسيل (بخار)',
-        serPrice: 250,
-      },
-      {
-        serName: 'غسيل (بخار)',
-        serPrice: 250,
-      },
-      {
-        serName: 'غسيل (بخار)',
-        serPrice: 250,
-      },
-    ],
-    rates: 3,
-    stars: [1, 1, 1, 1, 0],
-    image: require('../assets/centers/center-image17.png'),
-  },
-  {
-    id: 18,
-    title: 'المتخصص لغسيل السيارات',
-    services: [
-      {
-        serName: 'غسيل (بخار)',
-        serPrice: 250,
-      },
-      {
-        serName: 'غسيل (بخار)',
-        serPrice: 250,
-      },
-      {
-        serName: 'غسيل (بخار)',
-        serPrice: 250,
-      },
-      {
-        serName: 'غسيل (بخار)',
-        serPrice: 250,
-      },
-    ],
-    rates: 2,
-    stars: [1, 1, 0, 0, 0],
-    image: require('../assets/centers/center-image18.png'),
-  },
-  {
-    id: 19,
-    title: 'شركة كلين كار',
-    services: [
-      {
-        serName: 'غسيل (بخار)',
-        serPrice: 250,
-      },
-      {
-        serName: 'غسيل (بخار)',
-        serPrice: 250,
-      },
-      {
-        serName: 'غسيل (بخار)',
-        serPrice: 250,
-      },
-      {
-        serName: 'غسيل (بخار)',
-        serPrice: 250,
-      },
-    ],
-    rates: 1,
-    stars: [1, 0, 0, 0, 0],
-    image: require('../assets/centers/center-image19.png'),
-  },
-  {
-    id: 20,
-    title: 'مغسلة التلميع الذهبي',
-    services: [
-      {
-        serName: 'غسيل (بخار)',
-        serPrice: 250,
-      },
-      {
-        serName: 'غسيل (بخار)',
-        serPrice: 250,
-      },
-      {
-        serName: 'غسيل (بخار)',
-        serPrice: 250,
-      },
-      {
-        serName: 'غسيل (بخار)',
-        serPrice: 250,
-      },
-    ],
-    rates: 0,
-    stars: [0, 0, 0, 0, 0],
-    image: require('../assets/centers/center-image20.png'),
   },
 ];
 

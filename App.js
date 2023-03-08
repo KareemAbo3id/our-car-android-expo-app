@@ -27,10 +27,12 @@ import AddressNav from './src/screens/Address.nav';
 import CarNav from './src/screens/Car.nav';
 import RouteAppBar from './src/components/RouteAppBar.component';
 import EntryNav from './src/screens/Entry.nav';
-import BookingNav from './src/screens/Booking.nav';
+import BookNav from './src/screens/Book.nav';
 import StoreNav from './src/screens/Store.nav';
 import ItemDetails from './src/screens/ItemDetails.nav';
 import InvoiceNav from './src/screens/Invoice.nav';
+import CenterDetails from './src/screens/CenterDetails.nav';
+import ReceiptNav from './src/screens/Receipt.nav';
 // imports ////////////////////////////////
 
 SplashScreen.preventAutoHideAsync();
@@ -51,9 +53,11 @@ const APP_SCREENS = [
   { id: 5, component: SettingNav, title: 'الاعدادات', name: 'Setting' },
   { id: 6, component: EntryNav, title: '', name: 'Entry' },
   { id: 7, component: StoreNav, title: '', name: 'Shop' },
-  { id: 8, component: BookingNav, title: 'احجز موعدك', name: 'Booking' },
+  { id: 8, component: BookNav, title: 'احجز موعدك', name: 'Booking' },
   { id: 9, component: ItemDetails, title: 'تفاصيل المنتج', name: 'Details' },
   { id: 10, component: InvoiceNav, title: 'فاتورة ضريبية', name: 'Invoice' },
+  { id: 9, component: CenterDetails, title: 'تفاصيل المركز', name: 'Center' },
+  { id: 10, component: ReceiptNav, title: 'ايصال الحجز', name: 'Receipt' },
 ];
 
 // react function /////////////////////////
