@@ -16,7 +16,6 @@ import { StyleSheet, ScrollView, RefreshControl, Image, Dimensions } from 'react
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Stack } from '@react-native-material/core';
 import { LinearGradient } from 'expo-linear-gradient';
-import { firebase } from '../../config';
 import KMFont from '../hooks/useFont.hook';
 import usePalette from '../hooks/usePalette.hook';
 // imports ////////////////////////////////
@@ -29,28 +28,9 @@ export default function ItemDetails({ route, navigation }) {
   // local hooks:
   const { id, title, price, image, stars, rates, prodNo, altPrice, packageNo } = route.params;
   const Palette = usePalette();
-  const { currentUser } = firebase.auth();
   const [refreshing, setRefreshing] = React.useState(false);
-  const [itemToCart, setItemToCart] = React.useState('');
 
   // local handlers:
-  const additemToCartHandler = async (userMake, userModel, userYear) => {
-    await firebase
-      .firestore()
-      .collection('users')
-      .doc(firebase.auth().currentUser.uid)
-      .update({
-        userCar: {
-          userMake,
-          userModel,
-          userYear,
-        },
-      })
-      .then(() => {
-        alert('تم تحديث بيانات السيارة بنجاح');
-      })
-      .catch(() => alert('حدث خطأ. حاول مرة اخرة'));
-  };
 
   // onRefresh =============:
   const onRefresh = React.useCallback(() => {
@@ -176,11 +156,16 @@ export default function ItemDetails({ route, navigation }) {
             style={{ borderRadius: 1200, flex: 1 }}
             labelStyle={{ lineHeight: 29 }}
             onPress={() => {
-              navigation.navigate('Cart');
+              navigation.navigate('Pay', {
+                image,
+                title,
+                price,
+                prodNo,
+              });
             }}
           >
             <Text variant="titleLarge" style={{ fontFamily: KMFont.Medium, color: Palette.White }}>
-              أضف الى السلة
+              شراء المنتج
             </Text>
           </Button>
         </Stack>

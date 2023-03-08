@@ -6,7 +6,7 @@
 /* eslint-disable global-require */
 /* eslint-disable import/no-useless-path-segments */
 import React from 'react';
-import { I18nManager } from 'react-native';
+import { I18nManager, Linking } from 'react-native';
 import { Stack } from '@react-native-material/core';
 import { Button, Card, Text } from 'react-native-paper';
 import KMFont from '../hooks/useFont.hook';
@@ -78,6 +78,9 @@ export default function CenterItem({ image, title, rates, stars, services }) {
           icon="phone"
           textColor={Palette.White}
           buttonColor={Palette.PrimDark}
+          onPress={() => {
+            Linking.openURL(`tel:0510101010`);
+          }}
           style={{ borderRadius: 1200, flex: 0.5 }}
           labelStyle={{
             fontFamily: KMFont.Regular,

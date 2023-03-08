@@ -115,9 +115,9 @@ export default function StoreNav({ navigation }) {
                     title: item.title,
                     price: item.price,
                     image: item.image,
+                    prodNo: item.prodNo,
                     stars: item.stars,
                     rates: item.rates,
-                    prodNo: item.prodNo,
                     altPrice: item.altPrice,
                     packageNo: item.packageNo,
                   });

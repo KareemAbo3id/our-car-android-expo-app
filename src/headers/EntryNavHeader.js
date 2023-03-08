@@ -5,7 +5,7 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import { StyleSheet, Dimensions } from 'react-native';
-import { ActivityIndicator, Appbar, Button, Card, Text } from 'react-native-paper';
+import { ActivityIndicator, Appbar, Card, Text } from 'react-native-paper';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Stack } from '@react-native-material/core';
 import { firebase } from '../../config';
@@ -21,7 +21,7 @@ const { height, width } = Dimensions.get('window');
 export default function EntryNavHeader({
   ProfilePath,
   SettingPath,
-  CartPath,
+
   BookingPath,
   CarPath,
 }) {
@@ -97,16 +97,6 @@ export default function EntryNavHeader({
               elevation: 2,
             }}
           />
-          <Button
-            mode="elevated"
-            elevation={2}
-            icon="cart"
-            style={{ backgroundColor: Palette.White }}
-            labelStyle={{ fontFamily: KMFont.Black, color: Palette.Primary }}
-            onPress={CartPath}
-          >
-            السلة
-          </Button>
         </Stack>
       </Appbar>
       <Stack w="100%" ph={25} pb={10} direction="row" items="center" justify="between" spacing={10}>

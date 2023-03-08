@@ -144,7 +144,6 @@ export default function Home() {
               <EntryNavHeader
                 ProfilePath={() => go.to('Profile')}
                 SettingPath={() => go.to('Setting')}
-                CartPath={() => go.to('Cart')}
                 BookingPath={() => go.to('Booking')}
                 CarPath={() => go.to('Car')}
               />
@@ -159,7 +158,6 @@ export default function Home() {
               <EntryNavHeader
                 ProfilePath={() => go.to('Profile')}
                 SettingPath={() => go.to('Setting')}
-                CartPath={() => go.to('Cart')}
                 BookingPath={() => go.to('Booking')}
                 CarPath={() => go.to('Car')}
               />
