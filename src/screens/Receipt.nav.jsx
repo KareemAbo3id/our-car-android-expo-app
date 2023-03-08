@@ -29,7 +29,7 @@ export default function ReceiptNav({ route }) {
   // local hooks:
   const [status, requestPermission] = MediaLibrary.usePermissions();
   const imageRef = useRef();
-  const { title, price, vatValue, netPrice } = route.params;
+  const { title, textOfDay, textOfHour } = route.params;
   const Palette = usePalette();
   const { currentUser } = firebase.auth();
   const [userAllData, setUserAllData] = React.useState('');
@@ -62,7 +62,7 @@ export default function ReceiptNav({ route }) {
 
       await MediaLibrary.saveToLibraryAsync(localUri);
       if (localUri) {
-        alert(`تم حفظ الفاتورة رقم #${(netPrice * 1234).toFixed(0)}`);
+        alert(`تم حفظ الايصال رقم #${textOfDay.slice(0, 2) * 12341}`);
       }
     } catch (e) {
       alert('خطأ غير معروف ');
@@ -87,10 +87,10 @@ export default function ReceiptNav({ route }) {
         <Card mode="outlined" style={{ backgroundColor: Palette.White, margin: 10 }}>
           <Stack pv={20} direction="column" justify="center" items="center">
             <Text variant="titleLarge" style={{ fontFamily: KMFont.Bold, color: Palette.Black }}>
-              فاتورة ضريبية
+              ايصال حجز
             </Text>
             <Text variant="titleMedium" style={{ fontFamily: KMFont.Medium, color: Palette.Black }}>
-              #{(netPrice * 1234).toFixed(0)}
+              #{textOfDay.slice(0, 2) * 12341}
             </Text>
             <Text variant="titleMedium" style={{ fontFamily: KMFont.Medium, color: Palette.Black }}>
               التاريخ: {yyyy + '/' + mm + '/' + dd}
@@ -98,9 +98,7 @@ export default function ReceiptNav({ route }) {
             <Stack direction="row" justify="center" items="center" pv={15}>
               <QRCode
                 size={160}
-                value={`فاتورة من: (our car)\n المنتج: (${title})\nضريبة ق.م: ${vatValue.toFixed(
-                  2
-                )} ريال سعودي\nاجمالي: ${price.toFixed(2)} ريال سعودي`}
+                value={`ايصال حجز من: (our car)\n المركز: (${title})\nموعد : ${textOfDay}\nالساعة: ${textOfHour}`}
               />
             </Stack>
             <Text variant="titleMedium" style={{ fontFamily: KMFont.Medium, color: Palette.Black }}>
@@ -127,10 +125,13 @@ export default function ReceiptNav({ route }) {
             borderStyle="dashed"
           >
             <Text variant="titleSmall" style={{ fontFamily: KMFont.Bold, color: Palette.Black }}>
-              المنتج
+              المركز
             </Text>
             <Text variant="titleSmall" style={{ fontFamily: KMFont.Bold, color: Palette.Black }}>
-              السعر
+              اليوم
+            </Text>
+            <Text variant="titleSmall" style={{ fontFamily: KMFont.Bold, color: Palette.Black }}>
+              الساعة
             </Text>
           </Stack>
           <Stack pv={10} mh={30} direction="row" justify="between" items="center" spacing={5}>
@@ -141,61 +142,16 @@ export default function ReceiptNav({ route }) {
               {title}
             </Text>
             <Text variant="titleMedium" style={{ fontFamily: KMFont.Medium, color: Palette.Black }}>
-              {price}
-            </Text>
-          </Stack>
-          <Stack
-            pv={10}
-            mh={30}
-            direction="row"
-            justify="between"
-            items="center"
-            borderTop={1}
-            borderStyle="dashed"
-            spacing={5}
-          >
-            <Text variant="titleMedium" style={{ fontFamily: KMFont.Medium, color: Palette.Black }}>
-              السعر غير شامل الضريبة
+              {textOfDay}
             </Text>
             <Text variant="titleMedium" style={{ fontFamily: KMFont.Medium, color: Palette.Black }}>
-              {netPrice.toFixed(2)}
+              {textOfHour}
             </Text>
           </Stack>
-          <Stack
-            pv={10}
-            mh={30}
-            direction="row"
-            justify="between"
-            items="center"
-            borderStyle="dashed"
-            spacing={5}
-          >
-            <Text variant="titleMedium" style={{ fontFamily: KMFont.Medium, color: Palette.Black }}>
-              قيمة الضريبة (15%)
-            </Text>
-            <Text variant="titleMedium" style={{ fontFamily: KMFont.Medium, color: Palette.Black }}>
-              {vatValue.toFixed(2)}
-            </Text>
-          </Stack>
-          <Stack
-            pv={10}
-            mh={30}
-            direction="row"
-            justify="between"
-            items="center"
-            borderTop={1}
-            borderStyle="dashed"
-          >
-            <Text variant="titleLarge" style={{ fontFamily: KMFont.Bold, color: Palette.Black }}>
-              الاجمالي
-            </Text>
-            <Text variant="titleLarge" style={{ fontFamily: KMFont.Bold, color: Palette.Black }}>
-              {price} ر.س
-            </Text>
-          </Stack>
+
           <Stack pv={10} mh={30} direction="row" justify="center" items="center">
             <Text variant="bodyMedium" style={{ fontFamily: KMFont.Regular, color: Palette.Black }}>
-              تم اصدار الفاتورة الكترونياً من تطبيق our car
+              تم اصدار الايصال الكترونياً من تطبيق our car
             </Text>
           </Stack>
         </Card>
@@ -211,7 +167,7 @@ export default function ReceiptNav({ route }) {
           onPress={capInvoice}
         >
           <Text variant="titleMedium" style={{ fontFamily: KMFont.Bold, color: Palette.White }}>
-            حفظ الفاتورة
+            حفظ الايصال
           </Text>
         </Button>
       </Stack>

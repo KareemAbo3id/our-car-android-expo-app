@@ -1,3 +1,5 @@
+/* eslint-disable prefer-template */
+/* eslint-disable react/jsx-boolean-value */
 /* eslint-disable quotes */
 /* eslint-disable global-require */
 /* eslint-disable operator-linebreak */
@@ -14,23 +16,25 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import React from 'react';
 import { Button, IconButton, Text } from 'react-native-paper';
-import { StyleSheet, ScrollView, RefreshControl, Image, Dimensions, Linking } from 'react-native';
+import {
+  StyleSheet,
+  ScrollView,
+  RefreshControl,
+  Image,
+  Dimensions,
+  Linking,
+  Platform,
+} from 'react-native';
+import DateTimePicker from '@react-native-community/datetimepicker';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Stack } from '@react-native-material/core';
 import { LinearGradient } from 'expo-linear-gradient';
 import KMFont from '../hooks/useFont.hook';
 import usePalette from '../hooks/usePalette.hook';
-import { SelectList } from 'react-native-dropdown-select-list';
 // imports ////////////////////////////////
 
 // eslint-disable-next-line no-unused-vars
-const { height, width } = Dimensions.get('window');.
-
-const bookDays = [
-  {
-    key: '1982',
-    value: '1982',
-  }]
+const { height, width } = Dimensions.get('window');
 
 // react function /////////////////////////
 export default function CenterDetails({ route, navigation }) {
@@ -38,6 +42,31 @@ export default function CenterDetails({ route, navigation }) {
   const { id, location, title, rates, stars, image, services } = route.params;
   const Palette = usePalette();
   const [refreshing, setRefreshing] = React.useState(false);
+  const [date, setDate] = React.useState(new Date());
+  const [mode, setMode] = React.useState('date');
+  const [show, setShow] = React.useState(false);
+  const [textOfDay, setTextOfDay] = React.useState('');
+  const [textOfHour, setTextOfHour] = React.useState('');
+
+  const onDateChange = (event, selectedDate) => {
+    const currentDate = selectedDate || date;
+    setShow(Platform.OS === 'ios');
+    setDate(currentDate);
+
+    const tempDate = new Date(currentDate);
+    const fDate =
+      tempDate.getDate() + '/' + (tempDate.getMonth() + 1) + '/' + tempDate.getFullYear();
+
+    const fTime = tempDate.getHours() + ':' + tempDate.getMinutes();
+
+    setTextOfDay(fDate);
+    setTextOfHour(fTime);
+  };
+
+  const showMode = (currentMode) => {
+    setShow(true);
+    setMode(currentMode);
+  };
 
   // local handlers:
 
@@ -159,43 +188,126 @@ export default function CenterDetails({ route, navigation }) {
         </Stack>
 
         <Stack mt={5} direction="column" w="100%" justify="start" items="stretch" spacing={5}>
-          <SelectList
-            setSelected={setBookDay}
-            data={bookDays}
-            fontFamily={KMFont.Regular}
-            search={false}
-            dropdownStyles={[{ backgroundColor: Palette.White }, Styles.dropdownStyles]}
-            boxStyles={[{ backgroundColor: Palette.White }, Styles.boxStyles]}
-            inputStyles={{ color: Palette.Black, fontSize: 17.5 }}
-            dropdownTextStyles={{ color: Palette.Black, fontSize: 17.5 }}
-            placeholder="حدد موعدك"
-            arrowicon={
-              <MaterialCommunityIcons name="menu-down" color={Palette.Primary} size={30} />
-            }
-          />
+          <Text variant="bodyLarge" style={{ fontFamily: KMFont.Bold, color: Palette.SecDark }}>
+            قم باختيار موعدك
+          </Text>
+          <Stack
+            direction="row"
+            justify="between"
+            items="center"
+            spacing={10}
+            p={10}
+            bg={Palette.White}
+            style={{ elevation: 2, borderRadius: 6 }}
+          >
+            <Button
+              mode="text"
+              compact
+              icon="calendar-blank"
+              textColor={Palette.Primary}
+              style={{ borderRadius: 1200 }}
+              labelStyle={{ lineHeight: 29, fontFamily: KMFont.Bold, fontSize: 17 }}
+              onPress={() => {
+                showMode('date');
+              }}
+            >
+              اختيار اليوم
+            </Button>
+            <Text
+              variant="bodyLarge"
+              style={{
+                fontFamily: KMFont.Medium,
+                color: Palette.Black,
+                borderRadius: 6,
+                borderColor: Palette.SecDark2,
+                borderWidth: 1,
+                paddingHorizontal: 5,
+              }}
+            >
+              {textOfDay ? textOfDay : 'تاريخ غير محدد'}
+            </Text>
+          </Stack>
+          {textOfDay && (
+            <Stack
+              direction="row"
+              justify="between"
+              items="center"
+              spacing={10}
+              p={10}
+              bg={Palette.White}
+              style={{ elevation: 2, borderRadius: 6 }}
+            >
+              <Button
+                mode="text"
+                compact
+                icon="clock"
+                textColor={Palette.Primary}
+                style={{ borderRadius: 1200 }}
+                labelStyle={{ lineHeight: 29, fontFamily: KMFont.Bold, fontSize: 17 }}
+                onPress={() => {
+                  showMode('time');
+                }}
+              >
+                اختيار الساعة
+              </Button>
+              <Text
+                variant="bodyLarge"
+                style={{
+                  fontFamily: KMFont.Medium,
+                  color: Palette.Black,
+                  borderRadius: 6,
+                  borderColor: Palette.SecDark2,
+                  borderWidth: 1,
+                  paddingHorizontal: 5,
+                }}
+              >
+                {textOfHour ? textOfHour : 'تاريخ غير محدد'}
+              </Text>
+            </Stack>
+          )}
         </Stack>
 
-        <Stack direction="column" justify="center" items="stretch" w="100%" pv={10} spacing={10}>
-          <Button
-            mode="elevated"
-            icon="clipboard-text-clock"
-            elevation={1}
-            textColor={Palette.White}
-            buttonColor={Palette.Primary}
-            style={{ borderRadius: 1200 }}
-            labelStyle={{ lineHeight: 29 }}
-            onPress={() => {
-              navigation.navigate('Booking', {
-                image,
-                title,
-              });
-            }}
-          >
-            <Text variant="titleLarge" style={{ fontFamily: KMFont.Medium, color: Palette.White }}>
-              حجز موعد
-            </Text>
-          </Button>
+        <Stack mt={5} direction="column" w="100%" justify="start" items="stretch" spacing={5}>
+          {show && (
+            <DateTimePicker
+              testID="dateTimePicker"
+              value={date}
+              mode={mode}
+              is24Hour={false}
+              display="default"
+              onChange={onDateChange}
+            />
+          )}
         </Stack>
+        {textOfHour && (
+          <Stack direction="column" justify="center" items="stretch" w="100%" pv={10} spacing={10}>
+            <Button
+              mode="elevated"
+              icon="clipboard-text-clock"
+              elevation={1}
+              textColor={Palette.White}
+              buttonColor={Palette.Primary}
+              style={{ borderRadius: 1200 }}
+              labelStyle={{ lineHeight: 29 }}
+              onPress={() => {
+                navigation.navigate('Booking', {
+                  textOfDay: textOfDay,
+                  textOfHour: textOfHour,
+                  services: services,
+                  image: image,
+                  title: title,
+                });
+              }}
+            >
+              <Text
+                variant="titleLarge"
+                style={{ fontFamily: KMFont.Medium, color: Palette.White }}
+              >
+                حجز موعد
+              </Text>
+            </Button>
+          </Stack>
+        )}
       </Stack>
     </ScrollView>
   );
@@ -205,19 +317,5 @@ export default function CenterDetails({ route, navigation }) {
 const Styles = StyleSheet.create({
   SAVStyleForAndroid: {
     flex: 1,
-  },
-  dropdownStyles: {
-    borderWidth: 0,
-    width: '100%',
-    elevation: 2,
-    borderRadius: 15,
-  },
-  boxStyles: {
-    borderWidth: 0,
-    borderRadius: 1000,
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginTop: 10,
-    elevation: 2,
   },
 });

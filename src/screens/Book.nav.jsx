@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-one-expression-per-line */
 /* eslint-disable no-alert */
 /* eslint-disable object-shorthand */
 /* eslint-disable no-else-return */
@@ -9,14 +10,13 @@
 /* eslint-disable react-native/no-inline-styles */
 /* eslint-disable object-curly-newline */
 import React from 'react';
-import { ScrollView, StyleSheet, RefreshControl } from 'react-native';
+import { ScrollView, StyleSheet, RefreshControl, Image } from 'react-native';
 import { Stack } from '@react-native-material/core';
-import { Button, Card, Divider, RadioButton, Switch, Text, TextInput } from 'react-native-paper';
+import { Button, Card, Divider, RadioButton, Text, TextInput } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { firebase } from '../../config';
 import usePalette from '../hooks/usePalette.hook';
-import CartItem from '../components/CartItem.component';
 import KMFont from '../hooks/useFont.hook';
 // imports ////////////////////////////////
 
@@ -24,16 +24,8 @@ import KMFont from '../hooks/useFont.hook';
 export default function BookNav({ route }) {
   // local hooks:
   const navigation = useNavigation();
-  const { title, price, prodNo, image } = route.params;
-  const VAT = 0.15;
-  const vatValue = price * VAT;
-  const netPrice = price - vatValue;
-  const deliver = price * 0.1;
-
+  const { title, image, services, textOfDay, textOfHour } = route.params;
   const [value, setValue] = React.useState('first');
-  const [isSwitchOn, setIsSwitchOn] = React.useState(false);
-
-  const onToggleSwitch = () => setIsSwitchOn(!isSwitchOn);
 
   // local hooks:
   const Palette = usePalette();
@@ -89,7 +81,58 @@ export default function BookNav({ route }) {
         mt={20}
         pv={5}
       >
-        <CartItem title={title} price={price} image={image} prodNo={prodNo} />
+        <Card
+          mode="elevated"
+          elevation={2}
+          style={{ backgroundColor: Palette.White, marginBottom: 10 }}
+        >
+          <Card.Content>
+            <Stack direction="row" justify="center" items="center" pt={20}>
+              <Image source={image} style={{ width: 150, height: 150 }} resizeMode="center" />
+            </Stack>
+            <Stack direction="column" justify="center" items="start" spacing={5} pt={15}>
+              <Text
+                variant="headlineSmall"
+                style={{ fontFamily: KMFont.Bold, color: Palette.Black }}
+              >
+                {title}
+              </Text>
+            </Stack>
+            <Stack mt={5} direction="column" w="100%" justify="start" items="stretch" spacing={5}>
+              <Text variant="bodyLarge" style={{ fontFamily: KMFont.Bold, color: Palette.SecDark }}>
+                الخدمات
+              </Text>
+              {services.map((i, o) => {
+                return (
+                  <Stack
+                    key={o}
+                    direction="row"
+                    justify="between"
+                    items="center"
+                    p={10}
+                    bg={Palette.White}
+                    style={{ elevation: 2, borderRadius: 6 }}
+                    border={1}
+                    borderColor={Palette.SecDark2}
+                  >
+                    <Text
+                      variant="bodyLarge"
+                      style={{ fontFamily: KMFont.Bold, color: Palette.Black }}
+                    >
+                      {i.serName}
+                    </Text>
+                    <Text
+                      variant="bodyLarge"
+                      style={{ fontFamily: KMFont.Bold, color: Palette.Info }}
+                    >
+                      {i.serPrice} ر.س
+                    </Text>
+                  </Stack>
+                );
+              })}
+            </Stack>
+          </Card.Content>
+        </Card>
         <Card mode="elevated" elevation={2} style={{ backgroundColor: Palette.White }}>
           <Card.Content>
             <Stack direction="row" justify="start" items="stretch" w="100%" mb={15}>
@@ -117,7 +160,7 @@ export default function BookNav({ route }) {
                   variant="titleLarge"
                   style={{ fontFamily: KMFont.Medium, color: Palette.Black }}
                 >
-                  كاش عند التوصيل
+                  كاش
                 </Text>
                 <MaterialCommunityIcons name="cash-multiple" size={20} color={Palette.Black} />
               </Stack>
@@ -273,12 +316,12 @@ export default function BookNav({ route }) {
                 wrap
               >
                 <Stack wrap direction="row" justify="start" items="center" spacing={2}>
-                  <MaterialCommunityIcons name="map-marker" size={25} color={Palette.Primary} />
+                  <MaterialCommunityIcons name="car" size={25} color={Palette.Primary} />
                   <Text
                     variant="bodyLarge"
                     style={{ fontFamily: KMFont.Bold, color: Palette.Black }}
                   >
-                    التوصيل الى:
+                    السيارة:
                   </Text>
                 </Stack>
                 <Stack wrap direction="row" justify="start" items="center" spacing={2}>
@@ -286,21 +329,21 @@ export default function BookNav({ route }) {
                     variant="bodyLarge"
                     style={{ fontFamily: KMFont.Medium, color: Palette.Black }}
                   >
-                    {userAllData.userAddress?.userReg}
+                    {userAllData.userCar?.userMake}
                   </Text>
                   <Text>-</Text>
                   <Text
                     variant="bodyLarge"
                     style={{ fontFamily: KMFont.Medium, color: Palette.Black }}
                   >
-                    {userAllData.userAddress?.userCity}
+                    {userAllData.userCar?.userModel}
                   </Text>
                   <Text>-</Text>
                   <Text
                     variant="bodyLarge"
                     style={{ fontFamily: KMFont.Medium, color: Palette.Black }}
                   >
-                    {userAllData.userAddress?.userDis}
+                    {userAllData.userCar?.userYear}
                   </Text>
                 </Stack>
               </Stack>
@@ -317,37 +360,29 @@ export default function BookNav({ route }) {
                 wrap
               >
                 <Stack wrap direction="row" justify="start" items="center" spacing={2}>
-                  <MaterialCommunityIcons name="truck-fast" size={25} color={Palette.Primary} />
+                  <MaterialCommunityIcons name="clock" size={25} color={Palette.Primary} />
                   <Text
                     variant="bodyLarge"
                     style={{ fontFamily: KMFont.Bold, color: Palette.Black }}
                   >
-                    معلومات الشحن:
+                    الموعد:
                   </Text>
                 </Stack>
-
-                <Text
-                  variant="bodyLarge"
-                  style={{ fontFamily: KMFont.Medium, color: Palette.Black }}
-                >
-                  توصيل سريع خلال 48 ساعة عند الدفع بالبطاقة الائتمانية
-                </Text>
-              </Stack>
-              <Stack
-                direction="row"
-                justify="start"
-                items="center"
-                spacing={7}
-                bg={Palette.White}
-                ph={10}
-                style={{ elevation: 2, borderRadius: 5 }}
-                border={1}
-                borderColor={Palette.SecDark2}
-              >
-                <Switch color={Palette.Primary} value={isSwitchOn} onValueChange={onToggleSwitch} />
-                <Text variant="bodyLarge" style={{ fontFamily: KMFont.Bold, color: Palette.Black }}>
-                  شخص آخر سيستلم الطلب
-                </Text>
+                <Stack wrap direction="row" justify="start" items="center" spacing={2}>
+                  <Text
+                    variant="bodyLarge"
+                    style={{ fontFamily: KMFont.Medium, color: Palette.Black }}
+                  >
+                    يوم {textOfDay}
+                  </Text>
+                  <Text>-</Text>
+                  <Text
+                    variant="bodyLarge"
+                    style={{ fontFamily: KMFont.Medium, color: Palette.Black }}
+                  >
+                    الساعة {textOfHour}
+                  </Text>
+                </Stack>
               </Stack>
             </Stack>
           </Card.Content>
@@ -362,29 +397,27 @@ export default function BookNav({ route }) {
               paddingBottom: 10,
             }}
           >
-            بالضغط على (اتمام عملية الشراء) فانت توافق على سياسة الاستخدام والخصوصية
+            بالضغط على (تأكيد حجز الموعد) فانت توافق على سياسة الاستخدام والخصوصية
           </Text>
           <Button
             mode="elevated"
-            icon="cart"
+            icon="calendar-blank"
             elevation={1}
             textColor={Palette.White}
             buttonColor={Palette.Primary}
             style={{ borderRadius: 1200, flex: 1 }}
             labelStyle={{ lineHeight: 29 }}
             onPress={() => {
-              alert('تمت عملية الشراء بنجاح');
-              navigation.navigate('Invoice', {
+              alert('تم حجز موعدك بنجاح');
+              navigation.navigate('Receipt', {
                 title: title,
-                price: price,
-                vatValue: vatValue,
-                netPrice: netPrice,
-                deliver: deliver,
+                textOfDay: textOfDay,
+                textOfHour: textOfHour,
               });
             }}
           >
             <Text variant="titleLarge" style={{ fontFamily: KMFont.Medium, color: Palette.White }}>
-              اتمام عملية الشراء
+              تأكيد حجز الموعد
             </Text>
           </Button>
           <Button
@@ -394,7 +427,7 @@ export default function BookNav({ route }) {
             style={{ borderRadius: 1200, flex: 1, borderColor: Palette.Red }}
             labelStyle={{ lineHeight: 29 }}
             onPress={() => {
-              alert('تم الغاء عملية الشراء');
+              alert('تم الغاء عملية الحجز');
               navigation.goBack();
             }}
           >
