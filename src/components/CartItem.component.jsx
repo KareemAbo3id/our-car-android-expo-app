@@ -6,10 +6,10 @@
 /* eslint-disable object-curly-newline */
 /* eslint-disable react-native/no-inline-styles */
 import { Stack } from '@react-native-material/core';
-import { useNavigation } from '@react-navigation/native';
+
 import React from 'react';
 import { Image } from 'react-native';
-import { Button, Card, Divider, Text } from 'react-native-paper';
+import { Card, Divider, Text } from 'react-native-paper';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import KMFont from '../hooks/useFont.hook';
 import usePalette from '../hooks/usePalette.hook';
@@ -18,7 +18,6 @@ import { firebase } from '../../config';
 
 // react function /////////////////////////
 export default function CartItem({ title, image, price, prodNo }) {
-  const navigation = useNavigation();
   // local hooks:
   const Palette = usePalette();
   const VAT = 0.15;
@@ -132,32 +131,6 @@ export default function CartItem({ title, image, price, prodNo }) {
           <Text variant="titleLarge" style={{ fontFamily: KMFont.Bold, color: Palette.Success }}>
             {price} ر.س
           </Text>
-        </Stack>
-      </Card.Content>
-      <Card.Content>
-        <Stack direction="row" justify="center" items="stretch" w="100%" pt={20}>
-          <Button
-            mode="elevated"
-            icon="cash-multiple"
-            elevation={1}
-            textColor={Palette.White}
-            buttonColor={Palette.Primary}
-            style={{ borderRadius: 1200, flex: 1 }}
-            labelStyle={{ lineHeight: 29 }}
-            onPress={() => {
-              navigation.navigate('Invoice', {
-                title: title,
-                price: price,
-                vatValue: vatValue,
-                netPrice: netPrice,
-                deliver: deliver,
-              });
-            }}
-          >
-            <Text variant="titleLarge" style={{ fontFamily: KMFont.Medium, color: Palette.White }}>
-              اتمام عملية الشراء
-            </Text>
-          </Button>
         </Stack>
       </Card.Content>
     </Card>

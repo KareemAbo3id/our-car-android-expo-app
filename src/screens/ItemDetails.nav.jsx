@@ -1,3 +1,4 @@
+/* eslint-disable global-require */
 /* eslint-disable operator-linebreak */
 /* eslint-disable react-native/no-raw-text */
 /* eslint-disable react/jsx-one-expression-per-line */
@@ -145,6 +146,28 @@ export default function ItemDetails({ route, navigation }) {
           <Text variant="bodyLarge" style={{ fontFamily: KMFont.Bold, color: Palette.SecDark }}>
             12 شهر ضمان من الوكيل
           </Text>
+        </Stack>
+        <Stack direction="row" justify="center" items="stretch" w="100%" spacing={18}>
+          <Image
+            source={require('../../assets/pays/applepay.png')}
+            resizeMode="contain"
+            style={{ width: 40, height: 40 }}
+          />
+          <Image
+            source={require('../../assets/pays/mastercard.png')}
+            resizeMode="contain"
+            style={{ width: 40, height: 40 }}
+          />
+          <Image
+            source={require('../../assets/pays/visa.png')}
+            resizeMode="contain"
+            style={{ width: 40, height: 40 }}
+          />
+          <Image
+            source={require('../../assets/pays/mada.png')}
+            resizeMode="contain"
+            style={{ width: 40, height: 40 }}
+          />
         </Stack>
         <Stack direction="row" justify="center" items="stretch" w="100%" pv={10}>
           <Button

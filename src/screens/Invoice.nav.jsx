@@ -97,7 +97,7 @@ export default function InvoiceNav({ route }) {
             </Text>
             <Stack direction="row" justify="center" items="center" pv={15}>
               <QRCode
-                size={120}
+                size={160}
                 value={`فاتورة من: (our car)\n المنتج: (${title})\nضريبة ق.م: ${vatValue.toFixed(
                   2
                 )} ريال سعودي\nاجمالي: ${price.toFixed(2)} ريال سعودي`}
@@ -119,7 +119,6 @@ export default function InvoiceNav({ route }) {
           </Stack>
           <Stack
             pv={10}
-            ph={20}
             mh={30}
             direction="row"
             justify="between"
@@ -127,15 +126,18 @@ export default function InvoiceNav({ route }) {
             borderBottom={1}
             borderStyle="dashed"
           >
-            <Text variant="titleMedium" style={{ fontFamily: KMFont.Medium, color: Palette.Black }}>
+            <Text variant="titleSmall" style={{ fontFamily: KMFont.Bold, color: Palette.Black }}>
               المنتج
             </Text>
-            <Text variant="titleMedium" style={{ fontFamily: KMFont.Medium, color: Palette.Black }}>
+            <Text variant="titleSmall" style={{ fontFamily: KMFont.Bold, color: Palette.Black }}>
               السعر
             </Text>
           </Stack>
-          <Stack pv={10} ph={20} mh={30} direction="row" justify="between" items="center">
-            <Text variant="titleMedium" style={{ fontFamily: KMFont.Medium, color: Palette.Black }}>
+          <Stack pv={10} mh={30} direction="row" justify="between" items="center" spacing={5}>
+            <Text
+              variant="titleMedium"
+              style={{ fontFamily: KMFont.Medium, color: Palette.Black, flex: 0.7 }}
+            >
               {title}
             </Text>
             <Text variant="titleMedium" style={{ fontFamily: KMFont.Medium, color: Palette.Black }}>
@@ -144,16 +146,16 @@ export default function InvoiceNav({ route }) {
           </Stack>
           <Stack
             pv={10}
-            ph={20}
             mh={30}
             direction="row"
             justify="between"
             items="center"
             borderTop={1}
             borderStyle="dashed"
+            spacing={5}
           >
             <Text variant="titleMedium" style={{ fontFamily: KMFont.Medium, color: Palette.Black }}>
-              اجمالي غير شامل الضريبة
+              السعر غير شامل الضريبة
             </Text>
             <Text variant="titleMedium" style={{ fontFamily: KMFont.Medium, color: Palette.Black }}>
               {netPrice.toFixed(2)}
@@ -161,15 +163,15 @@ export default function InvoiceNav({ route }) {
           </Stack>
           <Stack
             pv={10}
-            ph={20}
             mh={30}
             direction="row"
             justify="between"
             items="center"
             borderStyle="dashed"
+            spacing={5}
           >
             <Text variant="titleMedium" style={{ fontFamily: KMFont.Medium, color: Palette.Black }}>
-              القيمة الضريبة (15%)
+              قيمة الضريبة (15%)
             </Text>
             <Text variant="titleMedium" style={{ fontFamily: KMFont.Medium, color: Palette.Black }}>
               {vatValue.toFixed(2)}
@@ -177,7 +179,6 @@ export default function InvoiceNav({ route }) {
           </Stack>
           <Stack
             pv={10}
-            ph={20}
             mh={30}
             direction="row"
             justify="between"
@@ -185,11 +186,11 @@ export default function InvoiceNav({ route }) {
             borderTop={1}
             borderStyle="dashed"
           >
-            <Text variant="titleMedium" style={{ fontFamily: KMFont.Bold, color: Palette.Black }}>
-              الاجمالي شامل الضريبة
+            <Text variant="titleLarge" style={{ fontFamily: KMFont.Bold, color: Palette.Black }}>
+              الاجمالي
             </Text>
-            <Text variant="titleMedium" style={{ fontFamily: KMFont.Bold, color: Palette.Black }}>
-              {price}
+            <Text variant="titleLarge" style={{ fontFamily: KMFont.Bold, color: Palette.Black }}>
+              {price} ر.س
             </Text>
           </Stack>
           <Stack pv={10} mh={30} direction="row" justify="center" items="center">
