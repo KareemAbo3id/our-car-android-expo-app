@@ -84,10 +84,6 @@ export default function Signup() {
 
   const [finishAll, setFinishAll] = React.useState(false);
 
-  const [noteVer, setNoteVer] = React.useState('تم تفعيل الحساب');
-  const [noteCar, setNoteCar] = React.useState('تم اضافة بيانات السيارة');
-  const [noteAddress, setNoteAddress] = React.useState('تم ادخال العنوان');
-
   // reset sign up info handler =============:
   const resetSignUpForm = () => {
     setLocalFName('');
@@ -140,7 +136,7 @@ export default function Signup() {
           .auth()
           .currentUser.sendEmailVerification({
             handleCodeInApp: true,
-            url: 'https://ourcar-ec74b.firebaseapp.com',
+            url: 'https://ourcar-ec74b.firebaseapp.com/',
           })
           .then(() => {
             alert('تم ارسال رابط تفعيل الحساب الى بريدك الالكتروني');
@@ -165,7 +161,6 @@ export default function Signup() {
                 userCity,
                 userDis,
               },
-              userCart: [],
             });
           })
           .catch(() => {
@@ -801,7 +796,6 @@ export default function Signup() {
                     loaclCity,
                     localDis
                   );
-                  userAddNotes();
                 }}
               >
                 إنشاء
