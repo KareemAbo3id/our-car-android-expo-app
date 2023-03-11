@@ -8,7 +8,7 @@ const storeList = [
     stars: [1, 1, 1, 1, 0],
     image: require('../assets/store/image1.jpg'),
     altPrice: 240,
-    price: 29.99,
+    price: 219.99,
     packageNo: 22,
   },
   {
