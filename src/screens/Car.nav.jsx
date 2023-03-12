@@ -1,7 +1,14 @@
 import React from 'react';
-import { StyleSheet, RefreshControl, View, KeyboardAvoidingView, ScrollView } from 'react-native';
+import {
+  StyleSheet,
+  RefreshControl,
+  View,
+  KeyboardAvoidingView,
+  ScrollView,
+  Dimensions,
+} from 'react-native';
 import { Stack } from '@react-native-material/core';
-import { ActivityIndicator, Button, Card, Text, TextInput } from 'react-native-paper';
+import { ActivityIndicator, Avatar, Button, Card, Text, TextInput } from 'react-native-paper';
 import { firebase } from '../../config';
 import KMFont from '../hooks/useFont.hook';
 import usePalette from '../hooks/usePalette.hook';
@@ -11,7 +18,10 @@ import carMake from '../../data/carMake';
 import carModel from '../../data/carModel';
 import carYear from '../../data/carYear';
 import { nextCarValid } from '../hooks/CheckerSignup.hook';
+import { LinearGradient } from 'expo-linear-gradient';
 // imports ////////////////////////////////
+
+const { height, width } = Dimensions.get('window');
 
 // react function /////////////////////////
 export default function CarNav() {
@@ -99,89 +109,124 @@ export default function CarNav() {
         }
       >
         <KeyboardAvoidingView behavior="height">
-          <Stack
-            justify="center"
-            items="stretch"
-            direction="column"
-            spacing={10}
-            ph={10}
-            mt={20}
-            pv={5}
-          >
-            <Text variant="titleSmall" style={{ fontFamily: KMFont.Bold, color: Palette.SecDark }}>
-              بيانات السيارة
-            </Text>
-            <Card style={{ backgroundColor: Palette.White }} mode="elevated">
-              <Card.Content
-                style={{
-                  flexDirection: 'column',
-                  justifyContent: 'center',
-                  alignItems: 'flex-start',
-                  gap: 5,
+          <Stack justify="center" items="stretch" direction="column" spacing={10} mt={20}>
+            <LinearGradient
+              colors={['rgba(0,0,0,0)', 'rgba(0,0,0,0.2)']}
+              style={{
+                height: height * 0.15,
+                top: 0,
+              }}
+            />
+            <Avatar.Icon
+              icon="car"
+              color={Palette.PrimDark}
+              style={{
+                elevation: 10,
+                backgroundColor: Palette.White,
+                height: 70,
+                width: 70,
+                borderRadius: 1000,
+                position: 'absolute',
+                top: height * 0.09,
+                right: width / 2 - 35,
+              }}
+            />
+
+            <Stack items="center" justify="center" direction="row" spacing={5} mt={30}>
+              <Text
+                variant="headlineSmall"
+                style={{ fontFamily: KMFont.Bold, color: Palette.PrimDark }}
+              >
+                {userAllData?.userCar?.userMake}
+              </Text>
+              <Text style={{ fontFamily: KMFont.Bold, color: Palette.PrimDark }}>-</Text>
+              <Text
+                variant="headlineSmall"
+                style={{ fontFamily: KMFont.Bold, color: Palette.PrimDark }}
+              >
+                {userAllData?.userCar?.userModel}
+              </Text>
+              <Text style={{ fontFamily: KMFont.Bold, color: Palette.PrimDark }}>-</Text>
+              <Text
+                variant="headlineSmall"
+                style={{ fontFamily: KMFont.Bold, color: Palette.PrimDark }}
+              >
+                {userAllData?.userCar?.userYear}
+              </Text>
+            </Stack>
+            <Stack ph={20} mt={20} spacing={15}>
+              <Card style={{ backgroundColor: Palette.White }} mode="elevated">
+                <Card.Content
+                  style={{
+                    flexDirection: 'column',
+                    justifyContent: 'center',
+                    alignItems: 'flex-start',
+                    gap: 5,
+                  }}
+                >
+                  <Stack>
+                    <Text
+                      variant="bodySmall"
+                      style={{ fontFamily: KMFont.Regular, color: Palette.SecDark }}
+                    >
+                      الشركة
+                    </Text>
+                    <Text
+                      variant="titleLarge"
+                      style={{ fontFamily: KMFont.Medium, color: Palette.PrimDark }}
+                    >
+                      {userAllData?.userCar?.userMake}
+                    </Text>
+                  </Stack>
+                  <Stack mt={10}>
+                    <Text
+                      variant="bodySmall"
+                      style={{ fontFamily: KMFont.Regular, color: Palette.SecDark }}
+                    >
+                      الموديل
+                    </Text>
+                    <Text
+                      variant="titleLarge"
+                      style={{ fontFamily: KMFont.Medium, color: Palette.PrimDark }}
+                    >
+                      {userAllData?.userCar?.userModel}
+                    </Text>
+                  </Stack>
+                  <Stack mt={10}>
+                    <Text
+                      variant="bodySmall"
+                      style={{ fontFamily: KMFont.Regular, color: Palette.SecDark }}
+                    >
+                      السنة
+                    </Text>
+                    <Text
+                      variant="titleLarge"
+                      style={{ fontFamily: KMFont.Medium, color: Palette.PrimDark }}
+                    >
+                      {userAllData?.userCar?.userYear}
+                    </Text>
+                  </Stack>
+                </Card.Content>
+              </Card>
+              <Button
+                mode="contained"
+                elevation={5}
+                icon="pencil"
+                buttonColor={Palette.Primary}
+                textColor={Palette.White}
+                style={{ borderRadius: 1000, marginTop: 10 }}
+                labelStyle={{
+                  fontFamily: KMFont.Bold,
+                  fontSize: 17,
+                  lineHeight: 29,
+                }}
+                onPress={() => {
+                  setUpdateUI(true);
                 }}
               >
-                <Stack>
-                  <Text
-                    variant="bodySmall"
-                    style={{ fontFamily: KMFont.Regular, color: Palette.SecDark }}
-                  >
-                    الشركة
-                  </Text>
-                  <Text
-                    variant="titleLarge"
-                    style={{ fontFamily: KMFont.Medium, color: Palette.PrimDark }}
-                  >
-                    {userAllData?.userCar?.userMake}
-                  </Text>
-                </Stack>
-                <Stack mt={10}>
-                  <Text
-                    variant="bodySmall"
-                    style={{ fontFamily: KMFont.Regular, color: Palette.SecDark }}
-                  >
-                    الموديل
-                  </Text>
-                  <Text
-                    variant="titleLarge"
-                    style={{ fontFamily: KMFont.Medium, color: Palette.PrimDark }}
-                  >
-                    {userAllData?.userCar?.userModel}
-                  </Text>
-                </Stack>
-                <Stack mt={10}>
-                  <Text
-                    variant="bodySmall"
-                    style={{ fontFamily: KMFont.Regular, color: Palette.SecDark }}
-                  >
-                    السنة
-                  </Text>
-                  <Text
-                    variant="titleLarge"
-                    style={{ fontFamily: KMFont.Medium, color: Palette.PrimDark }}
-                  >
-                    {userAllData?.userCar?.userYear}
-                  </Text>
-                </Stack>
-              </Card.Content>
-            </Card>
-            <Button
-              mode="contained"
-              elevation={5}
-              icon="pencil"
-              buttonColor={Palette.Primary}
-              textColor={Palette.White}
-              style={{ borderRadius: 1000, marginTop: 10 }}
-              labelStyle={{
-                fontFamily: KMFont.Bold,
-                fontSize: 17,
-                lineHeight: 29,
-              }}
-              onPress={() => {
-                setUpdateUI(true);
-              }}
-            >
-              تحديث بيانات السيارة
-            </Button>
+                تحديث بيانات السيارة
+              </Button>
+            </Stack>
           </Stack>
         </KeyboardAvoidingView>
       </ScrollView>

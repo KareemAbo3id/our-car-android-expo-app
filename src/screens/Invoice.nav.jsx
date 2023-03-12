@@ -10,10 +10,10 @@ import React, { useRef } from 'react';
 import QRCode from 'react-native-qrcode-svg';
 import { StyleSheet, ScrollView, View } from 'react-native';
 import { Stack } from '@react-native-material/core';
-import { ActivityIndicator, Button, Card, Text } from 'react-native-paper';
+import { ActivityIndicator, Button, Card, Divider, Text } from 'react-native-paper';
 import * as MediaLibrary from 'expo-media-library';
 import { captureRef } from 'react-native-view-shot';
-
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { firebase } from '../../config';
 import KMFont from '../hooks/useFont.hook';
 import usePalette from '../hooks/usePalette.hook';
@@ -27,9 +27,17 @@ const yyyy = today.getFullYear();
 // react function /////////////////////////
 export default function InvoiceNav({ route }) {
   // local hooks:
+  const { title, price } = route.params;
+  const VATPer = 0.15;
+  const DELPer = 0.1;
+  const VatVal = price * VATPer;
+  const DelVal = price * DELPer;
+  const allSubVal = VatVal + DelVal;
+  const netPrice = price - allSubVal;
+  const total = netPrice + allSubVal;
+
   const [status, requestPermission] = MediaLibrary.usePermissions();
   const imageRef = useRef();
-  const { title, price, vatValue, netPrice } = route.params;
   const Palette = usePalette();
   const { currentUser } = firebase.auth();
   const [userAllData, setUserAllData] = React.useState('');
@@ -85,7 +93,7 @@ export default function InvoiceNav({ route }) {
     <ScrollView style={Styles.SAVStyleForAndroid}>
       <View ref={imageRef} collapsable={false}>
         <Card mode="outlined" style={{ backgroundColor: Palette.White, margin: 10 }}>
-          <Stack pv={20} direction="column" justify="center" items="center">
+          <Stack pt={20} direction="column" justify="center" items="center">
             <Text variant="titleLarge" style={{ fontFamily: KMFont.Bold, color: Palette.Black }}>
               فاتورة ضريبية
             </Text>
@@ -98,27 +106,143 @@ export default function InvoiceNav({ route }) {
             <Stack direction="row" justify="center" items="center" pv={15}>
               <QRCode
                 size={160}
-                value={`فاتورة من: (our car)\n المنتج: (${title})\nضريبة ق.م: ${vatValue.toFixed(
+                value={`فاتورة من: (our car)\n المنتج: (${title})\nضريبة ق.م: ${VatVal.toFixed(
                   2
                 )} ريال سعودي\nاجمالي: ${price.toFixed(2)} ريال سعودي`}
               />
             </Stack>
-            <Text variant="titleMedium" style={{ fontFamily: KMFont.Medium, color: Palette.Black }}>
-              اسم المتجر: Our Car
-            </Text>
-            <Text variant="titleMedium" style={{ fontFamily: KMFont.Medium, color: Palette.Black }}>
-              الرقم الضريبي: 123456789900003
-            </Text>
-            <Text variant="titleMedium" style={{ fontFamily: KMFont.Medium, color: Palette.Black }}>
-              اسم العميل: {userAllData?.userContact?.userFname}{' '}
-              {userAllData?.userContact?.userLname}
-            </Text>
-            <Text variant="titleMedium" style={{ fontFamily: KMFont.Medium, color: Palette.Black }}>
-              الايميل: {userAllData?.userContact?.userEmail}
+          </Stack>
+
+          {/* OUR CAR DATA */}
+          <Stack
+            ph={20}
+            mt={20}
+            direction="row"
+            items="center"
+            justify="start"
+            w="100%"
+            spacing={2}
+          >
+            <MaterialCommunityIcons name="store" size={18} />
+            <Text variant="titleSmall" style={{ fontFamily: KMFont.Bold, color: Palette.Black }}>
+              بيانات البائع:
             </Text>
           </Stack>
+          <Stack direction="row" items="start" justify="start" spacing={10} w="100%" ph={20}>
+            <Stack direction="column" justify="center" items="start" spacing={1}>
+              <Text
+                variant="titleSmall"
+                style={{ fontFamily: KMFont.Medium, color: Palette.Black }}
+              >
+                الاسم:
+              </Text>
+              <Text
+                variant="titleSmall"
+                style={{ fontFamily: KMFont.Medium, color: Palette.Black }}
+              >
+                الرقم الضريبي:
+              </Text>
+              <Text
+                variant="titleSmall"
+                style={{ fontFamily: KMFont.Medium, color: Palette.Black }}
+              >
+                السجل التجاري:
+              </Text>
+              <Text
+                variant="titleSmall"
+                style={{ fontFamily: KMFont.Medium, color: Palette.Black }}
+              >
+                العنوان:
+              </Text>
+            </Stack>
+            <Stack direction="column" justify="center" items="start" spacing={1}>
+              <Text
+                variant="titleSmall"
+                style={{ fontFamily: KMFont.Medium, color: Palette.Black }}
+              >
+                OUR CAR
+              </Text>
+              <Text
+                variant="titleSmall"
+                style={{ fontFamily: KMFont.Medium, color: Palette.Black }}
+              >
+                123456789900003
+              </Text>
+              <Text
+                variant="titleSmall"
+                style={{ fontFamily: KMFont.Medium, color: Palette.Black }}
+              >
+                1122334455
+              </Text>
+              <Text
+                variant="titleSmall"
+                style={{ fontFamily: KMFont.Medium, color: Palette.Black }}
+              >
+                جدة-الفيصلية-عبداللطيف جميل
+              </Text>
+            </Stack>
+          </Stack>
+          {/* CUSTOMER DATA */}
           <Stack
-            pv={10}
+            ph={20}
+            mt={20}
+            direction="row"
+            items="center"
+            justify="start"
+            w="100%"
+            spacing={2}
+          >
+            <MaterialCommunityIcons name="account" size={18} />
+            <Text variant="titleSmall" style={{ fontFamily: KMFont.Bold, color: Palette.Black }}>
+              بيانات العميل:
+            </Text>
+          </Stack>
+          <Stack direction="row" items="start" justify="start" spacing={10} w="100%" ph={20}>
+            <Stack direction="column" justify="center" items="start" spacing={1}>
+              <Text
+                variant="titleSmall"
+                style={{ fontFamily: KMFont.Medium, color: Palette.Black }}
+              >
+                الاسم:
+              </Text>
+              <Text
+                variant="titleSmall"
+                style={{ fontFamily: KMFont.Medium, color: Palette.Black }}
+              >
+                الايميل:
+              </Text>
+              <Text
+                variant="titleSmall"
+                style={{ fontFamily: KMFont.Medium, color: Palette.Black }}
+              >
+                العنوان:
+              </Text>
+            </Stack>
+            <Stack direction="column" justify="center" items="start" spacing={1}>
+              <Text
+                variant="titleSmall"
+                style={{ fontFamily: KMFont.Medium, color: Palette.Black }}
+              >
+                {userAllData?.userContact?.userFname} {userAllData?.userContact?.userLname}
+              </Text>
+              <Text
+                variant="titleSmall"
+                style={{ fontFamily: KMFont.Medium, color: Palette.Black }}
+              >
+                {userAllData?.userContact?.userEmail}
+              </Text>
+              <Text
+                variant="titleSmall"
+                style={{ fontFamily: KMFont.Medium, color: Palette.Black }}
+              >
+                {userAllData.userAddress?.userReg}-{userAllData.userAddress?.userCity}-
+                {userAllData.userAddress?.userDis}
+              </Text>
+            </Stack>
+          </Stack>
+
+          {/* INVOICE DATA */}
+          <Stack
             mh={30}
             direction="row"
             justify="between"
@@ -127,7 +251,7 @@ export default function InvoiceNav({ route }) {
             borderStyle="dashed"
           >
             <Text variant="titleSmall" style={{ fontFamily: KMFont.Bold, color: Palette.Black }}>
-              المنتج
+              البيان
             </Text>
             <Text variant="titleSmall" style={{ fontFamily: KMFont.Bold, color: Palette.Black }}>
               السعر
@@ -141,7 +265,7 @@ export default function InvoiceNav({ route }) {
               {title}
             </Text>
             <Text variant="titleMedium" style={{ fontFamily: KMFont.Medium, color: Palette.Black }}>
-              {price}
+              {total.toFixed(2)}
             </Text>
           </Stack>
           <Stack
@@ -171,10 +295,26 @@ export default function InvoiceNav({ route }) {
             spacing={5}
           >
             <Text variant="titleMedium" style={{ fontFamily: KMFont.Medium, color: Palette.Black }}>
-              قيمة الضريبة (15%)
+              + قيمة الضريبة (15%)
             </Text>
             <Text variant="titleMedium" style={{ fontFamily: KMFont.Medium, color: Palette.Black }}>
-              {vatValue.toFixed(2)}
+              {VatVal.toFixed(2)}
+            </Text>
+          </Stack>
+          <Stack
+            pv={10}
+            mh={30}
+            direction="row"
+            justify="between"
+            items="center"
+            borderStyle="dashed"
+            spacing={5}
+          >
+            <Text variant="titleMedium" style={{ fontFamily: KMFont.Medium, color: Palette.Black }}>
+              + رسوم الشحن (1%)
+            </Text>
+            <Text variant="titleMedium" style={{ fontFamily: KMFont.Medium, color: Palette.Black }}>
+              {DelVal.toFixed(2)}
             </Text>
           </Stack>
           <Stack
@@ -190,10 +330,13 @@ export default function InvoiceNav({ route }) {
               الاجمالي
             </Text>
             <Text variant="titleLarge" style={{ fontFamily: KMFont.Bold, color: Palette.Black }}>
-              {price} ر.س
+              {total.toFixed(2)} ر.س
             </Text>
           </Stack>
-          <Stack pv={10} mh={30} direction="row" justify="center" items="center">
+          <Stack mv={10} ph={20}>
+            <Divider style={{ backgroundColor: Palette.SecDark, height: 1 }} />
+          </Stack>
+          <Stack mb={10} mh={30} direction="row" justify="center" items="center">
             <Text variant="bodyMedium" style={{ fontFamily: KMFont.Regular, color: Palette.Black }}>
               تم اصدار الفاتورة الكترونياً من تطبيق our car
             </Text>

@@ -1,3 +1,4 @@
+/* eslint-disable global-require */
 /* eslint-disable no-alert */
 /* eslint-disable object-shorthand */
 /* eslint-disable no-else-return */
@@ -9,9 +10,9 @@
 /* eslint-disable react-native/no-inline-styles */
 /* eslint-disable object-curly-newline */
 import React from 'react';
-import { ScrollView, StyleSheet, RefreshControl } from 'react-native';
+import { Image, ScrollView, StyleSheet, RefreshControl } from 'react-native';
 import { Stack } from '@react-native-material/core';
-import { Button, Card, Divider, RadioButton, Switch, Text, TextInput } from 'react-native-paper';
+import { Button, Card, Checkbox, Divider, RadioButton, Text, TextInput } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { firebase } from '../../config';
@@ -25,15 +26,13 @@ export default function PayNav({ route }) {
   // local hooks:
   const navigation = useNavigation();
   const { title, price, prodNo, image } = route.params;
-  const VAT = 0.15;
-  const vatValue = price * VAT;
-  const netPrice = price - vatValue;
-  const deliver = price * 0.1;
 
   const [value, setValue] = React.useState('first');
-  const [isSwitchOn, setIsSwitchOn] = React.useState(false);
+  const [isAnthorDeliverSwitchOn, setIsAnthorDeliverSwitchOn] = React.useState(false);
+  const [isLeaveDoorSwitchOn, setIsLeaveDoorSwitchOn] = React.useState(false);
 
-  const onToggleSwitch = () => setIsSwitchOn(!isSwitchOn);
+  const onAnthorDeliverHandler = () => setIsAnthorDeliverSwitchOn(!isAnthorDeliverSwitchOn);
+  const onLeaveDoorHandler = () => setIsLeaveDoorSwitchOn(!isLeaveDoorSwitchOn);
 
   // local hooks:
   const Palette = usePalette();
@@ -110,12 +109,12 @@ export default function PayNav({ route }) {
                 justify="start"
                 items="center"
                 spacing={5}
-                mb={5}
+                mb={10}
               >
-                <RadioButton value="first" color={Palette.Info} />
+                <RadioButton value="first" color={Palette.Primary2} />
                 <Text
-                  variant="titleLarge"
-                  style={{ fontFamily: KMFont.Medium, color: Palette.Black }}
+                  variant="titleMedium"
+                  style={{ fontFamily: KMFont.Bold, color: Palette.Black }}
                 >
                   كاش عند التوصيل
                 </Text>
@@ -130,18 +129,20 @@ export default function PayNav({ route }) {
                 borderColor={Palette.SecDark2}
                 direction="column"
                 justify="center"
-                items="start"
+                items="center"
                 spacing={5}
               >
-                <Stack direction="row" justify="start" items="center" spacing={5}>
-                  <RadioButton value="second" color={Palette.Info} />
-                  <Text
-                    variant="titleLarge"
-                    style={{ fontFamily: KMFont.Medium, color: Palette.Black }}
-                  >
-                    بطاقة إئتمانية
-                  </Text>
-                  <MaterialCommunityIcons name="credit-card" size={20} color={Palette.Black} />
+                <Stack direction="row" justify="start" w="100%" items="center">
+                  <RadioButton value="second" color={Palette.Primary2} />
+                  <Stack direction="row" justify="start" items="center" spacing={5}>
+                    <Text
+                      variant="titleMedium"
+                      style={{ fontFamily: KMFont.Bold, color: Palette.Black }}
+                    >
+                      بطاقة إئتمانية
+                    </Text>
+                    <MaterialCommunityIcons name="credit-card" size={20} color={Palette.Black} />
+                  </Stack>
                 </Stack>
                 {value === 'second' ? (
                   <Stack
@@ -153,12 +154,33 @@ export default function PayNav({ route }) {
                     mt={15}
                     pb={10}
                   >
-                    <Text
-                      variant="titleMedium"
-                      style={{ fontFamily: KMFont.Bold, color: Palette.Black }}
+                    <Stack
+                      direction="row"
+                      justify="between"
+                      items="center"
+                      w="100%"
+                      mt={10}
+                      ph={10}
                     >
-                      ادخل بيانات البطاقة
-                    </Text>
+                      <Text
+                        variant="titleMedium"
+                        style={{ fontFamily: KMFont.Medium, color: Palette.Black }}
+                      >
+                        ادخل بيانات البطاقة
+                      </Text>
+                      <Stack direction="row" justify="end" items="center" spacing={10}>
+                        <Image
+                          source={require('../../assets/pays/visa.png')}
+                          resizeMode="contain"
+                          style={{ width: 25, height: 25 }}
+                        />
+                        <Image
+                          source={require('../../assets/pays/mastercard.png')}
+                          resizeMode="contain"
+                          style={{ width: 25, height: 25 }}
+                        />
+                      </Stack>
+                    </Stack>
                     <TextInput
                       mode="outlined"
                       placeholder="رقم البطاقة: xxxx xxxx xxxx xxxx"
@@ -258,8 +280,20 @@ export default function PayNav({ route }) {
             </RadioButton.Group>
 
             <Divider style={{ backgroundColor: Palette.Black, marginTop: 15 }} />
-
-            <Stack spacing={10} direction="column" justify="start" items="stretch" w="100%" mt={15}>
+            <Stack direction="row" justify="start" items="stretch" w="100%" mt={15}>
+              <Text variant="titleMedium" style={{ fontFamily: KMFont.Bold, color: Palette.Black }}>
+                بيانات الشحن
+              </Text>
+            </Stack>
+            <Stack
+              spacing={10}
+              pb={15}
+              direction="column"
+              justify="start"
+              items="stretch"
+              w="100%"
+              mt={15}
+            >
               <Stack
                 direction="column"
                 items="start"
@@ -337,17 +371,49 @@ export default function PayNav({ route }) {
                 direction="row"
                 justify="start"
                 items="center"
-                spacing={7}
                 bg={Palette.White}
-                ph={10}
+                p={10}
                 style={{ elevation: 2, borderRadius: 5 }}
                 border={1}
                 borderColor={Palette.SecDark2}
+                spacing={5}
               >
-                <Switch color={Palette.Primary} value={isSwitchOn} onValueChange={onToggleSwitch} />
+                <Checkbox
+                  status={isAnthorDeliverSwitchOn ? 'checked' : 'unchecked'}
+                  onPress={() => {
+                    onAnthorDeliverHandler(!isAnthorDeliverSwitchOn);
+                  }}
+                  color={Palette.Primary2}
+                />
+
                 <Text variant="bodyLarge" style={{ fontFamily: KMFont.Bold, color: Palette.Black }}>
                   شخص آخر سيستلم الطلب
                 </Text>
+                <MaterialCommunityIcons name="account-switch" size={20} color={Palette.Black} />
+              </Stack>
+              <Stack
+                direction="row"
+                justify="start"
+                items="center"
+                bg={Palette.White}
+                p={10}
+                style={{ elevation: 2, borderRadius: 5 }}
+                border={1}
+                borderColor={Palette.SecDark2}
+                spacing={5}
+              >
+                <Checkbox
+                  status={isLeaveDoorSwitchOn ? 'checked' : 'unchecked'}
+                  onPress={() => {
+                    onLeaveDoorHandler(!isLeaveDoorSwitchOn);
+                  }}
+                  color={Palette.Primary2}
+                />
+
+                <Text variant="bodyLarge" style={{ fontFamily: KMFont.Bold, color: Palette.Black }}>
+                  أترك الطلب عند الباب
+                </Text>
+                <MaterialCommunityIcons name="human-dolly" size={20} color={Palette.Black} />
               </Stack>
             </Stack>
           </Card.Content>
@@ -377,9 +443,6 @@ export default function PayNav({ route }) {
               navigation.navigate('Invoice', {
                 title: title,
                 price: price,
-                vatValue: vatValue,
-                netPrice: netPrice,
-                deliver: deliver,
               });
             }}
           >
