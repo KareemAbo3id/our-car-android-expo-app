@@ -8,7 +8,8 @@ export default function useNav() {
 
   // local handlers:
   const to = (path) => navigation.navigate(path);
+  const Back = () => navigation.goBack();
 
   // the hook
-  return { to };
+  return { to, Back };
 }

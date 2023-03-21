@@ -4,12 +4,11 @@ import {
   StyleSheet,
   I18nManager,
   SafeAreaView,
-  View,
   KeyboardAvoidingView,
 } from 'react-native';
 import { firebase } from '../../config';
 import { Flex, Stack } from '@react-native-material/core';
-import { TextInput, Button } from 'react-native-paper';
+import { TextInput, Button, Divider, Card, Text } from 'react-native-paper';
 import {
   validateEmailColor,
   validatePasswordColor,
@@ -21,7 +20,7 @@ import KMFont from '../hooks/useFont.hook';
 import usePalette from '../hooks/usePalette.hook';
 import useLink from '../hooks/useLink.hook';
 import TitleAuth from '../components/TitleAuth.component';
-import { BackPattern1, BackPattern2, BackPattern3 } from '../components/BackPattern.component';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 // imports ////////////////////////////////
 
 I18nManager.forceRTL(true);
@@ -54,9 +53,6 @@ export default function Login() {
   return (
     <SafeAreaView style={[Styles.SAVStyleForAndroid, { backgroundColor: Palette.darkBg }]}>
       <StatusBar backgroundColor="transparent" translucent />
-      <BackPattern1 />
-      <BackPattern2 />
-      <BackPattern3 />
       <KeyboardAvoidingView role="form" behavior="height">
         {/* WELCOME ========================== */}
         <TitleAuth
@@ -77,7 +73,7 @@ export default function Login() {
             contextMenuHidden
             cursorColor={validateEmailColor(localEmail)}
             activeOutlineColor={validateEmailColor(localEmail)}
-            contentStyle={{ fontFamily: KMFont.Regular, fontSize: 17.5 }}
+            contentStyle={{ fontFamily: KMFont.Regular, fontSize: 17 }}
             style={{ backgroundColor: Palette.PrimLight, textAlign: 'auto' }}
             placeholderTextColor={Palette.SecDark}
             outlineStyle={{ borderRadius: 1000, borderWidth: 1 }}
@@ -90,41 +86,21 @@ export default function Login() {
             onChangeText={(text) => setLocalPassword(text)}
             mode="outlined"
             autoCapitalize="none"
-            contextMenuHidden
             cursorColor={validatePasswordColor(localPassword)}
             activeOutlineColor={validatePasswordColor(localPassword)}
-            contentStyle={{ fontFamily: KMFont.Regular, fontSize: 17.5 }}
+            contentStyle={{ fontFamily: KMFont.Regular, fontSize: 17 }}
             style={{ backgroundColor: Palette.PrimLight, textAlign: 'auto' }}
             placeholderTextColor={Palette.SecDark}
             outlineStyle={{ borderRadius: 1000, borderWidth: 1 }}
+            left={
+              <TextInput.Icon
+                icon={!showPassword ? 'eye' : 'eye-off'}
+                onPress={() => setShowPassword(!showPassword)}
+              />
+            }
           />
         </Stack>
-        <Flex direction="row" justify="between" items="center" pv={5}>
-          <Button
-            icon={!showPassword ? 'eye' : 'eye-off'}
-            mode="text"
-            compact
-            labelStyle={{
-              fontFamily: KMFont.Regular,
-              color: Palette.PrimLight,
-            }}
-            onPress={() => setShowPassword(!showPassword)}
-          >
-            {!showPassword ? 'اظهار رمز المرور' : 'اخفاء رمز المرور'}
-          </Button>
-          <Button
-            mode="text"
-            compact
-            labelStyle={{
-              fontFamily: KMFont.Regular,
-              color: Palette.Info,
-            }}
-            onPress={() => go.to('resetPassword')}
-          >
-            نسيت رمز المرور؟
-          </Button>
-        </Flex>
-        <Stack direction="column" justify="center" items="stretch" spacing={10}>
+        <Stack direction="column" justify="center" items="stretch" mt={12}>
           <Button
             icon="lightning-bolt"
             mode="contained"
@@ -142,31 +118,119 @@ export default function Login() {
           >
             دخول
           </Button>
-          <Button
-            icon="account-plus"
+        </Stack>
+        <Divider style={{ marginTop: 15, backgroundColor: Palette.SecLight }} />
+        <Text
+          variant="bodySmall"
+          style={{
+            fontFamily: KMFont.Medium,
+            color: Palette.SecLight,
+            marginTop: 10,
+          }}
+        >
+          خيارات أخرى:
+        </Text>
+        <Stack direction="column" justify="center" items="stretch" spacing={10} mt={12}>
+          <Card
+            mode="contained"
+            style={{ backgroundColor: Palette.PrimLight, borderRadius: 8 }}
+            onPress={() => userLogin('guest@carify.com', '000000')}
+          >
+            <Stack direction="row" justify="between" items="center" ph={12} pv={8}>
+              <Stack direction="row" justify="start" items="center" spacing={5}>
+                <MaterialCommunityIcons name="star" color={Palette.Primary2} size={22} />
+                <Text
+                  variant="bodyMedium"
+                  style={{
+                    fontFamily: KMFont.Bold,
+                    color: Palette.Primary2,
+                    lineHeight: 29,
+                  }}
+                >
+                  الدخول كضيف
+                </Text>
+              </Stack>
+              <MaterialCommunityIcons name="chevron-left" color={Palette.Primary2} size={25} />
+            </Stack>
+          </Card>
+          <Card
             mode="outlined"
-            style={{ borderColor: Palette.Info, borderRadius: 1000 }}
-            textColor={Palette.Info}
-            labelStyle={{
-              fontFamily: KMFont.Medium,
-              fontSize: 15,
-              lineHeight: 29,
+            style={{
+              backgroundColor: Palette.darkBg,
+              borderRadius: 8,
+              borderColor: Palette.darkBg,
+            }}
+            onPress={() => go.to('resetPassword')}
+          >
+            <Stack direction="row" justify="between" items="center" ph={12} pv={4}>
+              <Stack direction="row" justify="start" items="center" spacing={5}>
+                <MaterialCommunityIcons name="lock-question" color={Palette.SecLight} size={22} />
+                <Text
+                  variant="bodyMedium"
+                  style={{
+                    fontFamily: KMFont.Medium,
+                    color: Palette.SecLight,
+                    lineHeight: 29,
+                  }}
+                >
+                  نسيت رمز المرور؟
+                </Text>
+              </Stack>
+              <MaterialCommunityIcons name="chevron-left" color={Palette.SecLight} size={25} />
+            </Stack>
+          </Card>
+          <Card
+            mode="outlined"
+            style={{
+              backgroundColor: Palette.darkBg,
+              borderRadius: 8,
+              borderColor: Palette.darkBg,
             }}
             onPress={() => go.to('signup')}
           >
-            مستخدم جديد؟ انشئ حسابك
-          </Button>
-          <Button
-            mode="text"
-            labelStyle={{
-              fontFamily: KMFont.Regular,
-              color: Palette.SecDark,
-              fontSize: 12,
+            <Stack direction="row" justify="between" items="center" ph={12} pv={4}>
+              <Stack direction="row" justify="start" items="center" spacing={5}>
+                <MaterialCommunityIcons name="account-plus" color={Palette.SecLight} size={22} />
+                <Text
+                  variant="bodyMedium"
+                  style={{
+                    fontFamily: KMFont.Medium,
+                    color: Palette.SecLight,
+                    lineHeight: 29,
+                  }}
+                >
+                  مستخدم جديد؟ انشئ حسابك
+                </Text>
+              </Stack>
+              <MaterialCommunityIcons name="chevron-left" color={Palette.SecLight} size={25} />
+            </Stack>
+          </Card>
+          <Card
+            mode="outlined"
+            style={{
+              backgroundColor: Palette.darkBg,
+              borderRadius: 8,
+              borderColor: Palette.darkBg,
             }}
-            onPress={() => openLink('https://kareemabo3id.github.io/ourcar-TOU/')}
+            onPress={() => go.to('TOUAuth')}
           >
-            سياسة الاستخدام والخصوصية
-          </Button>
+            <Stack direction="row" justify="between" items="center" ph={12} pv={4}>
+              <Stack direction="row" justify="start" items="center" spacing={5}>
+                <MaterialCommunityIcons name="shield-lock" color={Palette.SecLight} size={22} />
+                <Text
+                  variant="bodyMedium"
+                  style={{
+                    fontFamily: KMFont.Medium,
+                    color: Palette.SecLight,
+                    lineHeight: 29,
+                  }}
+                >
+                  سياسة الإستخدام والخصوصية
+                </Text>
+              </Stack>
+              <MaterialCommunityIcons name="chevron-left" color={Palette.SecLight} size={25} />
+            </Stack>
+          </Card>
         </Stack>
       </KeyboardAvoidingView>
     </SafeAreaView>

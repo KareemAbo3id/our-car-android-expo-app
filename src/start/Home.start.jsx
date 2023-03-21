@@ -35,6 +35,7 @@ const screenNames = {
 // react function /////////////////////////
 export default function Home() {
   // local hooks =============:
+  const guestEmail = 'guest@carify.com';
   const isCurrentUserVerified = firebase.auth().currentUser.emailVerified;
   const Palette = usePalette();
   const go = useNav();
@@ -63,7 +64,8 @@ export default function Home() {
   React.useEffect(() => getUserAllData(), []);
 
   // local ui:
-  if (!isCurrentUserVerified) {
+
+  if (!isCurrentUserVerified && firebase.auth().currentUser.email !== guestEmail) {
     return <EmailVer />;
   }
 

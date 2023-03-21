@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import { firebase } from '../../config';
 import { Flex, Stack } from '@react-native-material/core';
-import { Button, TextInput } from 'react-native-paper';
+import { Appbar, Button, Text, TextInput } from 'react-native-paper';
 import { validateEmailColor, validateForgotPasswordFormSubmit } from '../hooks/useValidation.hook';
 
 // hooks:
@@ -17,7 +17,7 @@ import KMFont from '../hooks/useFont.hook';
 import usePalette from '../hooks/usePalette.hook';
 import useLink from '../hooks/useLink.hook';
 import TitleAuth from '../components/TitleAuth.component';
-import { BackPattern1, BackPattern2, BackPattern3 } from '../components/BackPattern.component';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 // imports ////////////////////////////////
 
 I18nManager.forceRTL(true);
@@ -51,9 +51,7 @@ export default function ResetPassword() {
   return (
     <SafeAreaView style={[Styles.SAVStyleForAndroid, { backgroundColor: Palette.darkBg }]}>
       <StatusBar backgroundColor="transparent" translucent />
-      <BackPattern1 />
-      <BackPattern2 />
-      <BackPattern3 />
+
       {!updateEmailSent ? (
         <KeyboardAvoidingView role="form" behavior="height">
           {/* WELCOME ========================== */}
@@ -99,18 +97,7 @@ export default function ResetPassword() {
             >
               ارسال
             </Button>
-            <Button
-              mode="text"
-              textColor={Palette.Info}
-              labelStyle={{
-                fontFamily: KMFont.Regular,
-                fontSize: 17,
-                lineHeight: 29,
-              }}
-              onPress={() => go.to('login')}
-            >
-              رجوع
-            </Button>
+
             <Button
               mode="text"
               labelStyle={{
@@ -130,18 +117,25 @@ export default function ResetPassword() {
             title="تم ارسال رابط تهيئة رمز المرور"
             source={require('../../assets/images/email-ver.png')}
           />
-          <Button
-            mode="text"
-            textColor={Palette.Info}
-            labelStyle={{
-              fontFamily: KMFont.Regular,
-              fontSize: 17,
-              lineHeight: 29,
-            }}
-            onPress={() => go.to('login')}
-          >
-            رجوع
-          </Button>
+          <Stack direction="column" justify="center" items="stretch">
+            <Button
+              mode="contained"
+              elevation={5}
+              buttonColor={Palette.Info}
+              textColor={Palette.PrimLight}
+              style={{ borderRadius: 1000 }}
+              labelStyle={{
+                fontFamily: KMFont.Bold,
+                fontSize: 17,
+                lineHeight: 29,
+              }}
+              onPress={() => {
+                go.Back();
+              }}
+            >
+              عودة
+            </Button>
+          </Stack>
         </Flex>
       )}
     </SafeAreaView>

@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 /* eslint-disable object-curly-newline */
 /* eslint-disable react/no-unstable-nested-components */
 /* eslint-disable no-undef */
@@ -33,6 +34,8 @@ import ItemDetails from './src/screens/ItemDetails.nav';
 import InvoiceNav from './src/screens/Invoice.nav';
 import CenterDetails from './src/screens/CenterDetails.nav';
 import ReceiptNav from './src/screens/Receipt.nav';
+import RouteAuthAppBar from './src/components/RouteAuthAppBar.component';
+import TOUAuth from './src/auth/TOU.auth';
 // imports ////////////////////////////////
 
 SplashScreen.preventAutoHideAsync();
@@ -40,9 +43,15 @@ const Stack = createNativeStackNavigator();
 
 // SCREENS DATA
 const AUTH_SCREENS = [
-  { id: 1, component: Login, name: 'login' },
-  { id: 2, component: Signup, name: 'signup' },
-  { id: 3, component: ResetPassword, name: 'resetPassword' },
+  { id: 1, component: Login, title: '', name: 'login', headerShown: false },
+  { id: 2, component: Signup, title: '', name: 'signup', headerShown: true },
+  { id: 3, component: ResetPassword, title: '', name: 'resetPassword', headerShown: true },
+  {
+    id: 4,
+    component: TOUAuth,
+    name: 'TOUAuth',
+    headerShown: true,
+  },
 ];
 
 const APP_SCREENS = [
@@ -102,12 +111,27 @@ function AppNav() {
               key={screen.id}
               name={screen.name}
               component={screen.component}
-              options={{
-                statusBarColor: 'transparent',
-                statusBarTranslucent: true,
-                headerShown: false,
-                animation: 'slide_from_left',
-              }}
+              options={
+                screen.headerShown
+                  ? {
+                      header: () => (
+                        <RouteAuthAppBar
+                          onPress={() => {
+                            go.Back();
+                          }}
+                        />
+                      ),
+                      statusBarColor: 'transparent',
+                      statusBarTranslucent: true,
+                      animation: 'slide_from_left',
+                    }
+                  : {
+                      statusBarColor: 'transparent',
+                      statusBarTranslucent: true,
+                      headerShown: false,
+                      animation: 'slide_from_left',
+                    }
+              }
             />
           );
         })}

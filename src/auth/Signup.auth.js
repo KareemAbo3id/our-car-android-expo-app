@@ -10,7 +10,7 @@ import {
 import { SelectList } from 'react-native-dropdown-select-list';
 import { firebase } from '../../config';
 import { Box, Divider, Flex, Stack } from '@react-native-material/core';
-import { Button, Card, IconButton, Text, TextInput } from 'react-native-paper';
+import { Button, Card, IconButton, Switch, Text, TextInput } from 'react-native-paper';
 import carMake from '../../data/carMake';
 import carModel from '../../data/carModel';
 import carYear from '../../data/carYear';
@@ -56,6 +56,7 @@ export default function Signup() {
   const [conPassword, setConPassword] = React.useState('');
 
   const [showPassword, setShowPassword] = React.useState(false);
+  const [showPassword2, setShowPassword2] = React.useState(false);
 
   const [TOUchecked, setTOUChecked] = React.useState(false);
 
@@ -176,21 +177,56 @@ export default function Signup() {
   return (
     <SafeAreaView style={[Styles.SAVStyleForAndroid, { backgroundColor: Palette.darkBg }]}>
       <StatusBar backgroundColor="transparent" translucent />
-      <BackPattern1 />
-      <BackPattern2 />
-      <BackPattern3 />
       <KeyboardAvoidingView role="form" behavior="height">
         {/* WELCOME ========================== */}
-        <TitleAuth
-          title="نورتنا!"
-          describe={
-            !finishAll ? 'ادخل البيانات المطلوبة لانشاء حسابك' : 'تأكد من بياناتك ثم اضغط انشاء'
-          }
-          source={require('../../assets/images/sign-up.png')}
-        />
+        <Stack direction="row" justify="center" items="center" ph={10} pb={8}>
+          {nameStep && (
+            <TitleAuth
+              title="نورتنا!"
+              describe="ادخل اسمك"
+              source={require('../../assets/images/sign-up.png')}
+            />
+          )}
+          {emailStep && (
+            <TitleAuth
+              title="نورتنا!"
+              describe="ادخل بريدك الالكتروني"
+              source={require('../../assets/images/sign-up.png')}
+            />
+          )}
+          {passStep && (
+            <TitleAuth
+              title="نورتنا!"
+              describe="ادخل رمز المرور"
+              source={require('../../assets/images/sign-up.png')}
+            />
+          )}
+          {TOUStep && (
+            <TitleAuth
+              title="نورتنا!"
+              describe="الموافقة على شروط الاستخدام"
+              source={require('../../assets/images/sign-up.png')}
+            />
+          )}
+
+          {carStep && (
+            <TitleAuth
+              title="نورتنا!"
+              describe="ادخل بيانات سيارتك"
+              source={require('../../assets/images/sign-up.png')}
+            />
+          )}
+          {addressStep && (
+            <TitleAuth
+              title="نورتنا!"
+              describe="ادخل عنوانك"
+              source={require('../../assets/images/sign-up.png')}
+            />
+          )}
+        </Stack>
 
         {/* STEPS ========================== */}
-        <Stack direction="row" justify="between" items="center" ph={10} pb={8}>
+        <Stack direction="row" justify="between" items="center" ph={10} pb={15}>
           <MaterialCommunityIcons
             name={nameStepIcon}
             color={nameStepIcon === 'account' ? Palette.SecDark : Palette.Info}
@@ -224,68 +260,6 @@ export default function Signup() {
         </Stack>
 
         {/* STEP TITLE ========================== */}
-        <Stack direction="row" justify="center" items="center" ph={10} pb={8}>
-          {nameStep && (
-            <Text
-              style={{
-                textAlign: 'center',
-                fontFamily: KMFont.Regular,
-                color: Palette.SecLight,
-              }}
-              variant="bodyLarge"
-            >
-              ادخل اسمك
-            </Text>
-          )}
-          {emailStep && (
-            <Text
-              style={{
-                textAlign: 'center',
-                fontFamily: KMFont.Regular,
-                color: Palette.SecLight,
-              }}
-              variant="bodyLarge"
-            >
-              ادخل بريدك الالكتروني
-            </Text>
-          )}
-          {passStep && (
-            <Text
-              style={{
-                textAlign: 'center',
-                fontFamily: KMFont.Regular,
-                color: Palette.SecLight,
-              }}
-              variant="bodyLarge"
-            >
-              ادخل رمز المرور
-            </Text>
-          )}
-          {carStep && (
-            <Text
-              style={{
-                textAlign: 'center',
-                fontFamily: KMFont.Regular,
-                color: Palette.SecLight,
-              }}
-              variant="bodyLarge"
-            >
-              ادخل بيانات سيارتك
-            </Text>
-          )}
-          {addressStep && (
-            <Text
-              style={{
-                textAlign: 'center',
-                fontFamily: KMFont.Regular,
-                color: Palette.SecLight,
-              }}
-              variant="bodyLarge"
-            >
-              ادخل عنوانك
-            </Text>
-          )}
-        </Stack>
 
         {/* FORM ========================== */}
         <Stack direction="column" justify="center" items="stretch">
@@ -420,12 +394,18 @@ export default function Signup() {
                 }}
                 placeholderTextColor={Palette.SecDark}
                 outlineStyle={{ borderRadius: 1000, borderWidth: 1 }}
+                left={
+                  <TextInput.Icon
+                    icon={!showPassword ? 'eye' : 'eye-off'}
+                    onPress={() => setShowPassword(!showPassword)}
+                  />
+                }
               />
               {/* Re Password */}
               <TextInput
                 textContentType="password"
                 placeholder="Re-type Password"
-                secureTextEntry={!showPassword}
+                secureTextEntry={!showPassword2}
                 value={conPassword}
                 onChangeText={(text) => setConPassword(text)}
                 mode="outlined"
@@ -440,22 +420,14 @@ export default function Signup() {
                 }}
                 placeholderTextColor={Palette.SecDark}
                 outlineStyle={{ borderRadius: 1000, borderWidth: 1 }}
+                left={
+                  <TextInput.Icon
+                    icon={!showPassword2 ? 'eye' : 'eye-off'}
+                    onPress={() => setShowPassword2(!showPassword2)}
+                  />
+                }
               />
-              <Flex direction="row" justify="between" items="center" pv={5}>
-                {/* Show / Hide Pass */}
-                <Button
-                  icon={!showPassword ? 'eye' : 'eye-off'}
-                  mode="text"
-                  compact
-                  labelStyle={{
-                    fontFamily: KMFont.Regular,
-                    color: Palette.PrimLight,
-                  }}
-                  onPress={() => setShowPassword(!showPassword)}
-                >
-                  {!showPassword ? 'اظهار رمز المرور' : 'اخفاء رمز المرور'}
-                </Button>
-              </Flex>
+
               {/* NEXT PASSWORD */}
               <Button
                 icon="arrow-left-bold"
@@ -484,20 +456,18 @@ export default function Signup() {
         {/* TOUchecked */}
         {TOUStep && (
           <View>
-            <Flex direction="row" justify="between" items="center" pv={5}>
-              <Button
-                icon={!TOUchecked ? 'checkbox-blank-outline' : 'checkbox-marked-outline'}
-                mode="text"
-                compact
-                labelStyle={{
-                  fontFamily: KMFont.Regular,
+            <Stack direction="row" justify="start" items="center" pv={5}>
+              <Switch value={TOUchecked} onValueChange={setTOUChecked} color={Palette.Info} />
+              <Text
+                variant="bodyMedium"
+                style={{
+                  fontFamily: KMFont.Medium,
                   color: Palette.PrimLight,
                 }}
-                onPress={() => setTOUChecked(!TOUchecked)}
               >
-                اوافق على سياسة الاستخدام والخصوصية
-              </Button>
-            </Flex>
+                اوافق على شروط الاستخدام والخصوصية
+              </Text>
+            </Stack>
             {/* NEXT TOUchecked */}
             <Button
               mode="contained"

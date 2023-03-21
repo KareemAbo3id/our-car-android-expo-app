@@ -1,12 +1,13 @@
-import React from "react";
-import { Text } from "react-native-paper";
-import { Box, Stack } from "@react-native-material/core";
-import { Image, Dimensions, StyleSheet } from "react-native";
-import usePalette from "../hooks/usePalette.hook";
-import KMFont from "../hooks/useFont.hook";
+/* eslint-disable react-native/no-inline-styles */
+import React from 'react';
+import { Text } from 'react-native-paper';
+import { Box, Stack } from '@react-native-material/core';
+import { Image, Dimensions, StyleSheet } from 'react-native';
+import usePalette from '../hooks/usePalette.hook';
+import KMFont from '../hooks/useFont.hook';
 // imports ////////////////////////////////
 
-const { height, width } = Dimensions.get("window");
+const { height, width } = Dimensions.get('window');
 
 // react function /////////////////////////
 export default function TitleAuth({ source, title, describe }) {
@@ -26,7 +27,7 @@ export default function TitleAuth({ source, title, describe }) {
         style={{
           fontFamily: KMFont.Bold,
           color: Palette.PrimLight,
-          textAlign: "center",
+          textAlign: 'center',
         }}
       >
         {title}
@@ -35,8 +36,8 @@ export default function TitleAuth({ source, title, describe }) {
         variant="bodyLarge"
         style={{
           fontFamily: KMFont.Medium,
-          color: Palette.SecLight,
-          textAlign: "center",
+          color: Palette.PrimLight,
+          textAlign: 'center',
         }}
       >
         {describe}
@@ -47,7 +48,7 @@ export default function TitleAuth({ source, title, describe }) {
 
 const Styles = StyleSheet.create({
   image: {
-    resizeMode: "contain",
+    resizeMode: 'contain',
     height: height * 0.1,
     width: width * 1,
   },

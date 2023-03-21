@@ -1,8 +1,9 @@
 {
   "expo": {
-    "name": "our car",
-    "slug": "our-car",
-    "version": "1.0.0",
+    "name": "Carify كاريفاي",
+    "slug": "carify",
+    "description": "car wash and maintenance services خدمات غسيل وصيانة السيارات",
+    "version": "2.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -20,7 +21,7 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.kareemabo3id.expoapp"
+      "package": "com.carifyCo.carifyApp"
     },
     "web": {
       "favicon": "./assets/favicon.png"
