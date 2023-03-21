@@ -7,7 +7,7 @@ import {
   KeyboardAvoidingView,
 } from 'react-native';
 import { firebase } from '../../config';
-import { Flex, Stack } from '@react-native-material/core';
+import { Box, Flex, Stack } from '@react-native-material/core';
 import { TextInput, Button, Divider, Card, Text } from 'react-native-paper';
 import {
   validateEmailColor,
@@ -119,40 +119,48 @@ export default function Login() {
             دخول
           </Button>
         </Stack>
-        <Divider style={{ marginTop: 15, backgroundColor: Palette.SecLight }} />
-        <Text
-          variant="bodySmall"
-          style={{
-            fontFamily: KMFont.Medium,
-            color: Palette.SecLight,
-            marginTop: 10,
-          }}
-        >
-          خيارات أخرى:
-        </Text>
-        <Stack direction="column" justify="center" items="stretch" spacing={10} mt={12}>
+        {/* ===================================================== */}
+        <Box bg={Palette.SecDark} h={1} mt={20} />
+        {/* ===================================================== */}
+        <Stack direction="row" justify="center" items="center" spacing={10} mt={12}>
           <Card
             mode="contained"
-            style={{ backgroundColor: Palette.PrimLight, borderRadius: 8 }}
+            style={{ backgroundColor: Palette.PrimLight, borderRadius: 8, flex: 0.5 }}
             onPress={() => userLogin('guest@carify.com', '000000')}
           >
-            <Stack direction="row" justify="between" items="center" ph={12} pv={8}>
-              <Stack direction="row" justify="start" items="center" spacing={5}>
-                <MaterialCommunityIcons name="star" color={Palette.Primary2} size={22} />
-                <Text
-                  variant="bodyMedium"
-                  style={{
-                    fontFamily: KMFont.Bold,
-                    color: Palette.Primary2,
-                    lineHeight: 29,
-                  }}
-                >
-                  الدخول كضيف
-                </Text>
-              </Stack>
-              <MaterialCommunityIcons name="chevron-left" color={Palette.Primary2} size={25} />
+            <Stack direction="column" justify="center" items="center" ph={12} pv={8}>
+              <MaterialCommunityIcons name="star" color={Palette.Primary2} size={22} />
+              <Text
+                variant="bodyMedium"
+                style={{
+                  fontFamily: KMFont.Bold,
+                  color: Palette.Primary2,
+                }}
+              >
+                الدخول كضيف
+              </Text>
             </Stack>
           </Card>
+          <Card
+            mode="contained"
+            style={{ backgroundColor: Palette.PrimLight, borderRadius: 8, flex: 0.5 }}
+            onPress={() => go.to('signup')}
+          >
+            <Stack direction="column" justify="center" items="center" ph={12} pv={8}>
+              <MaterialCommunityIcons name="account-plus" color={Palette.Primary2} size={22} />
+              <Text
+                variant="bodyMedium"
+                style={{
+                  fontFamily: KMFont.Bold,
+                  color: Palette.Primary2,
+                }}
+              >
+                انشئ حساب جديد
+              </Text>
+            </Stack>
+          </Card>
+        </Stack>
+        <Stack direction="column" justify="center" items="stretch" spacing={10} mt={12}>
           <Card
             mode="outlined"
             style={{
@@ -179,32 +187,7 @@ export default function Login() {
               <MaterialCommunityIcons name="chevron-left" color={Palette.SecLight} size={25} />
             </Stack>
           </Card>
-          <Card
-            mode="outlined"
-            style={{
-              backgroundColor: Palette.darkBg,
-              borderRadius: 8,
-              borderColor: Palette.darkBg,
-            }}
-            onPress={() => go.to('signup')}
-          >
-            <Stack direction="row" justify="between" items="center" ph={12} pv={4}>
-              <Stack direction="row" justify="start" items="center" spacing={5}>
-                <MaterialCommunityIcons name="account-plus" color={Palette.SecLight} size={22} />
-                <Text
-                  variant="bodyMedium"
-                  style={{
-                    fontFamily: KMFont.Medium,
-                    color: Palette.SecLight,
-                    lineHeight: 29,
-                  }}
-                >
-                  مستخدم جديد؟ انشئ حسابك
-                </Text>
-              </Stack>
-              <MaterialCommunityIcons name="chevron-left" color={Palette.SecLight} size={25} />
-            </Stack>
-          </Card>
+
           <Card
             mode="outlined"
             style={{

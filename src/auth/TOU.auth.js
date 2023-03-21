@@ -3,7 +3,6 @@ import React from 'react';
 import { StatusBar, StyleSheet, I18nManager, SafeAreaView, ScrollView } from 'react-native';
 import { Text } from 'react-native-paper';
 import usePalette from '../hooks/usePalette.hook';
-
 // imports ////////////////////////////////
 
 I18nManager.forceRTL(true);

@@ -772,31 +772,63 @@ export default function Signup() {
               </Button>
             </View>
           )}
-          <Button
-            icon="login"
-            mode="outlined"
-            style={{ borderColor: Palette.Info, borderRadius: 1000, marginTop: 10 }}
-            textColor={Palette.Info}
-            labelStyle={{
-              fontFamily: KMFont.Medium,
-              fontSize: 15,
-              lineHeight: 29,
-            }}
-            onPress={() => go.to('login')}
-          >
-            لديك حساب مسجل؟ سجل دخولك
-          </Button>
-          <Button
-            mode="text"
-            labelStyle={{
-              fontFamily: KMFont.Regular,
-              color: Palette.SecDark,
-              fontSize: 12,
-            }}
-            onPress={() => openLink('https://kareemabo3id.github.io/ourcar-TOU/')}
-          >
-            سياسة الاستخدام والخصوصية
-          </Button>
+          <Stack direction="row" justify="center" items="center" mt={15}>
+            <Box bg={Palette.SecLight} style={{ width: '100%', borderRadius: 1000 }} h={1} />
+          </Stack>
+          <Stack direction="column" justify="center" items="stretch" spacing={5} mt={12}>
+            <Card
+              mode="outlined"
+              style={{
+                backgroundColor: Palette.darkBg,
+                borderRadius: 8,
+                borderColor: Palette.darkBg,
+              }}
+              onPress={() => go.to('signup')}
+            >
+              <Stack direction="row" justify="between" items="center" ph={12} pv={4}>
+                <Stack direction="row" justify="start" items="center" spacing={5}>
+                  <MaterialCommunityIcons name="account-plus" color={Palette.SecLight} size={22} />
+                  <Text
+                    variant="bodyMedium"
+                    style={{
+                      fontFamily: KMFont.Medium,
+                      color: Palette.SecLight,
+                      lineHeight: 29,
+                    }}
+                  >
+                    مستخدم جديد؟ انشئ حسابك
+                  </Text>
+                </Stack>
+                <MaterialCommunityIcons name="chevron-left" color={Palette.SecLight} size={25} />
+              </Stack>
+            </Card>
+            <Card
+              mode="outlined"
+              style={{
+                backgroundColor: Palette.darkBg,
+                borderRadius: 8,
+                borderColor: Palette.darkBg,
+              }}
+              onPress={() => go.to('TOUAuth')}
+            >
+              <Stack direction="row" justify="between" items="center" ph={12} pv={4}>
+                <Stack direction="row" justify="start" items="center" spacing={5}>
+                  <MaterialCommunityIcons name="shield-lock" color={Palette.SecLight} size={22} />
+                  <Text
+                    variant="bodyMedium"
+                    style={{
+                      fontFamily: KMFont.Medium,
+                      color: Palette.SecLight,
+                      lineHeight: 29,
+                    }}
+                  >
+                    سياسة الإستخدام والخصوصية
+                  </Text>
+                </Stack>
+                <MaterialCommunityIcons name="chevron-left" color={Palette.SecLight} size={25} />
+              </Stack>
+            </Card>
+          </Stack>
         </Stack>
       </KeyboardAvoidingView>
     </SafeAreaView>
